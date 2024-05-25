@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentLogin">
+
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.example.project.view.fragment.FragmentLogin"
+        android:label="FragmentLogin"
+        tools:layout = "@layout/fragment_login">
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMain"
+        android:name="com.example.project.view.fragment.FragmentMain"
+        android:label="FragmentMain"
+        tools:layout = "@layout/fragment_main">
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentForm"
+            app:destination="@id/fragmentForm" />
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentDetails"
+            app:destination="@id/fragmentDetails"/>
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentEdit3"
+            app:destination="@id/fragmentEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentForm"
+        android:name="com.example.project.view.fragment.FragmentForm"
+        android:label="FragmentForm"
+        tools:layout = "@layout/fragment_form"/>
+    <fragment
+        android:id="@+id/fragmentDetails"
+        android:name="com.example.project.view.fragment.FragmentDetails"
+        android:label="FragmentDetails"
+        tools:layout = "@layout/fragment_details">
+        <action
+            android:id="@+id/action_fragmentDetails_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+        <action
+            android:id="@+id/action_fragmentDetails_to_fragmentEdit"
+            app:destination="@id/fragmentEdit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentEdit"
+        android:name="com.example.project.view.fragment.FragmentEdit"
+        android:label="fragmentEdit"
+        tools:layout="@layout/fragment_edit">
+        <action
+            android:id="@+id/action_fragmentEdit_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+    </fragment>
+</navigation>
