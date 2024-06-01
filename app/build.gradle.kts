@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id ("kotlin-kapt")
@@ -93,4 +94,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
 
+    //firestore:
+    //implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    //implementation("com.google.firebase:firebase-firestore")
+
+    //authentication
+    //implementation("com.google.firebase:firebase-auth-ktx")
 }
