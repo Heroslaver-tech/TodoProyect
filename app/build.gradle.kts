@@ -43,62 +43,55 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
-    implementation("com.google.firebase:firebase-database:21.0.0")
-    val navVersion = "2.7.3"
+    // AndroidX and core libraries
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
+
+    // Navigation component
+    val navVersion = "2.7.3"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+
+    // Testing libraries
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    //viewmodel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation ("androidx.activity:activity-ktx:1.8.0")
-    implementation ("androidx.fragment:fragment-ktx:1.6.2")
+    // ViewModel and LiveData
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
 
-    //corrutinas
+    // Activity and Fragment KTX
+    implementation("androidx.activity:activity-ktx:1.8.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    //navigation
-    implementation ("androidx.navigation:navigation-fragment-ktx:$navVersion")
-    implementation ("androidx.navigation:navigation-ui-ktx:$navVersion")
-    implementation("androidx.navigation:navigation-common:$navVersion")
-
-    // LiveData
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-
-    // Room
-    implementation ("androidx.room:room-runtime:2.5.2")
-    implementation ("androidx.room:room-ktx:2.5.2")
+    // Room database
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
 
-    //animations
+    // Animations
     implementation("com.airbnb.android:lottie:4.2.2")
-    
-    //cardView
+
+    // CardView
     implementation("androidx.cardview:cardview:1.0.0")
 
-    //Biometria
-    implementation ("androidx.biometric:biometric-ktx:1.2.0-alpha04")
+    // Biometric authentication
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha04")
 
-    implementation ("com.airbnb.android:lottie:3.4.0")
+    // Retrofit for network operations
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
-
-    //retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
-
-    //firestore:
-    //implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    //implementation("com.google.firebase:firebase-firestore")
-
-    //authentication
-    //implementation("com.google.firebase:firebase-auth-ktx")
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.android.gms:play-services-auth:20.1.0")
 }
