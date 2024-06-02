@@ -12,6 +12,7 @@
     <string name="title_register">Register Firebase</string>
     <string name="email">Email</string>
     <string name="Sign_Up">Sign Up</string>
-    <string name="login">Login</string>
+    <string name="login">Sign In</string>
     <string name="title_login">Login Firebase</string>
+    <string name="google">Sign in with Google</string>
 </resources>
