@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Clase6"
+rootProject.name = "TodoProject"
 include(":app")

@@ -1,10 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
     id ("kotlin-kapt")
 }
-
 android {
     namespace = "com.example.project"
     compileSdk = 34
@@ -44,6 +44,7 @@ android {
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
     val navVersion = "2.7.3"
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -93,4 +94,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
 
+    //firestore:
+    //implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    //implementation("com.google.firebase:firebase-firestore")
+
+    //authentication
+    //implementation("com.google.firebase:firebase-auth-ktx")
 }

@@ -1,9 +1,7 @@
 package com.example.project.view.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,58 +9,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.project.R
-import com.example.project.databinding.FragmentFormBinding
-import com.example.project.databinding.FragmentLoginBinding
+import com.example.project.databinding.FragmentRegisterBinding
 import com.example.project.viewmodel.LoginViewModel
-import com.example.project.viewmodel.PetViewModel
 
 
-class FragmentLogin : Fragment() {
+class FragmentRegister : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private lateinit var binding: FragmentRegisterBinding
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
         sharedPreferences = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
         setup()
-        sesion()
-        drivers()
         setupTextWatchers()
         return binding.root
     }
 
+    //drivers and bottom disable
     private fun setup() {
-
-        // Inicialmente deshabilitar el botón de registro
-        binding.btnLogin.isEnabled = false
-    }
-    private fun drivers() {
-        binding.btnLogin.setOnClickListener {
-            loginUser()
+        binding.btnRegister.setOnClickListener {
+            registerUser()
         }
-
-        binding.tvRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentLogin_to_fragmentRegister)
-        }
+        //Init bottom in disable
+        binding.btnRegister.isEnabled = false
     }
 
-    //go to home TODOs
-    private fun goToHome(){
-        findNavController().navigate(R.id.action_fragmentLogin_to_fragmentMain)
+    //go to login
+    private fun goToLogin(){
+        findNavController().navigate(R.id.action_fragmentRegister_to_fragmentLogin)
     }
 
-    //Verify the login in Firebase
-    private fun loginUser(){
+    //Register the user
+    private fun registerUser(){
         val email = binding.etEmail.text.toString()
         val pass = binding.etPass.text.toString()
 
@@ -72,28 +58,22 @@ class FragmentLogin : Fragment() {
             return
         }
 
-        loginViewModel.loginUser(email,pass){ isLogin ->
-            if (isLogin){
-                goToHome()
-            }else {
-                Toast.makeText(context, "Bad credentials\n" +
-                        "Check the fields", Toast.LENGTH_SHORT).show()
+        // Verify if password have minimum 6 characters
+        if (pass.length < 6) {
+            Toast.makeText(context, "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        loginViewModel.registerUser(email,pass) { isRegister ->
+            if (isRegister) {
+                Toast.makeText(context, "Success Register", Toast.LENGTH_SHORT).show()
+                goToLogin()
+            } else {
+                Toast.makeText(context, "Register Error", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    //Verify is have a open session already
-    private fun sesion(){
-        val email = sharedPreferences.getString("email",null)
-        loginViewModel.sesion(email){ isEnableView ->
-            if (isEnableView){
-                binding.clContenedor.visibility = View.INVISIBLE
-                goToHome()
-            }
-        }
-    }
-
-    //read any change on inputs
     private fun setupTextWatchers() {
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -109,11 +89,10 @@ class FragmentLogin : Fragment() {
         binding.etPass.addTextChangedListener(textWatcher)
     }
 
-    //verify is not empty the input
     private fun validateInputs() {
         val email = binding.etEmail.text.toString()
         val pass = binding.etPass.text.toString()
 
-        binding.btnLogin.isEnabled = email.isNotEmpty() && pass.isNotEmpty()
+        binding.btnRegister.isEnabled = email.isNotEmpty() && pass.isNotEmpty() && pass.length >= 6
     }
 }
