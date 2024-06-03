@@ -10,26 +10,18 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.project.model.Pet
-import com.example.project.viewmodel.PetViewModel
-import androidx.lifecycle.Observer
-import androidx.lifecycle.LifecycleOwner
-import com.example.project.webservices.RetrofitClient
-//import retrofit2.Call
-//import retrofit2.Callback
-//import retrofit2.Response
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import androidx.navigation.findNavController
-import com.example.project.R
-import com.example.project.webservices.Raza
+//import com.example.project.model.Pet
+import com.example.project.model.ToDo
+//import com.example.project.viewmodel.PetViewModel
+import com.example.project.viewmodel.ToDoViewModel
 import com.example.project.databinding.FragmentFormBinding
+
 
 
 class FragmentForm : Fragment() {
 
     private lateinit var binding: FragmentFormBinding
-    private val petViewModel: PetViewModel by viewModels()
+    private val toDoViewModel: ToDoViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,25 +45,44 @@ class FragmentForm : Fragment() {
     private fun drivers() {
         validarDatos()
         binding.btnSavePet.setOnClickListener {
-            savePet()
+            //savePet()
+            saveToDo()
         }
 
 
     }
 
-    private fun savePet() {
-        val name = binding.etName.text.toString()
-        val race = binding.etRace.text.toString()
-        val namePerson = binding.etNamePerson.text.toString()
-        val tel = binding.etTel.text.toString().toLong()
+//    private fun savePet() {
+//        val name = binding.etName.text.toString()
+//        val race = binding.etRace.text.toString()
+//        val namePerson = binding.etNamePerson.text.toString()
+//        val tel = binding.etTel.text.toString().toLong()
+//        // Obtener el índice del elemento seleccionado en el Spinner
+//        val selectedPosition = binding.spSymptom.selectedItemPosition
+//        // Obtener el valor del elemento seleccionado utilizando el índice
+//        val symptom = binding.spSymptom.getItemAtPosition(selectedPosition).toString()
+//        val newPet =
+//            Pet(name = name, race = race, namePerson = namePerson, tel = tel, symptom = symptom)
+//        petViewModel.savePet(newPet)
+//        Log.d("test", newPet.toString())
+//        Toast.makeText(context, "Artículo guardado !!", Toast.LENGTH_SHORT).show()
+//        findNavController().popBackStack()
+//
+//    }
+
+    private fun saveToDo() {
+        val titulo = binding.etTitulo.text.toString()
+        val description = binding.etDescription.text.toString()
+        val fecha = binding.etFecha.text.toString()
+        val status = false
         // Obtener el índice del elemento seleccionado en el Spinner
-        val selectedPosition = binding.spSymptom.selectedItemPosition
+        val selectedPosition = binding.spPrioridad.selectedItemPosition
         // Obtener el valor del elemento seleccionado utilizando el índice
-        val symptom = binding.spSymptom.getItemAtPosition(selectedPosition).toString()
-        val newPet =
-            Pet(name = name, race = race, namePerson = namePerson, tel = tel, symptom = symptom)
-        petViewModel.savePet(newPet)
-        Log.d("test", newPet.toString())
+        val prioridad = binding.spPrioridad.getItemAtPosition(selectedPosition).toString()
+        val newToDo =
+            ToDo(titulo = titulo, description = description, status = status, fecha = fecha, prioridad = prioridad)
+        toDoViewModel.saveToDo(newToDo)
+        Log.d("test", newToDo.toString())
         Toast.makeText(context, "Artículo guardado !!", Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
 
@@ -80,8 +91,8 @@ class FragmentForm : Fragment() {
     //Verifica que los datos se hayan llenado antes de mandar
     private fun validarDatos() {
         val listTextInputEditText =
-            listOf(binding.etName, binding.etRace, binding.etNamePerson, binding.etTel)
-        val spinner = binding.spSymptom
+            listOf(binding.etTitulo, binding.etDescription, binding.etFecha)
+        val spinner = binding.spPrioridad
 
         // Verifica TextInputEditText
         listTextInputEditText.forEach { textInputEditText ->
@@ -135,9 +146,27 @@ class FragmentForm : Fragment() {
 //        })
 //    }
 
+//
+//    private fun mostrarRazasEnTextView(razas: List<Raza>) {
+//        val properties = razas::class.java.declaredFields
+//        val keysList = mutableListOf<String>()
+//
+//        for (property in properties) {
+//            property.isAccessible = true
+//            val propertyName = property.name
+//            if (property.type == List::class.java) {
+//                keysList.add(propertyName)
+//            }
+//        }
+//
+//        val razasString =  razas.joinToString(separator = "\n") { it.name }
+//
+//       // Mostrar el listado de razas en el TextView
+//       // binding.etRace.setText(keysList[0])
+//    }
 
-    private fun mostrarRazasEnTextView(razas: List<Raza>) {
-        val properties = razas::class.java.declaredFields
+    private fun mostrarRazasEnTextView(tareas: List<ToDo>) {
+        val properties = tareas::class.java.declaredFields
         val keysList = mutableListOf<String>()
 
         for (property in properties) {
@@ -148,10 +177,10 @@ class FragmentForm : Fragment() {
             }
         }
 
-        val razasString =  razas.joinToString(separator = "\n") { it.name }
+        val tareasString =  tareas.joinToString(separator = "\n") { it.titulo }
 
-       // Mostrar el listado de razas en el TextView
-       // binding.etRace.setText(keysList[0])
+        // Mostrar el listado de razas en el TextView
+        // binding.etRace.setText(keysList[0])
     }
 
     private fun showToast(message: String) {

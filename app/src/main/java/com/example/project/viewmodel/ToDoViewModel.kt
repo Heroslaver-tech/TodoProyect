@@ -5,40 +5,40 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.project.model.Pet
-import com.example.project.repository.PetRepository
+
+import com.example.project.model.ToDo
+import com.example.project.repository.ToDoRepository
 import kotlinx.coroutines.launch
 
 
-class PetViewModel(application: Application) : AndroidViewModel(application) {
+class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     val context = getApplication<Application>()
-    private val petRepository = PetRepository(context)
+    private val toDoRepository = ToDoRepository(context)
 
-
-    private val _listPets = MutableLiveData<MutableList<Pet>>()
-    val listPets: LiveData<MutableList<Pet>> get() = _listPets
+    private val _listToDos = MutableLiveData<MutableList<ToDo>>()
+    val listToDos: LiveData<MutableList<ToDo>> get() = _listToDos
 
     private val _progresState = MutableLiveData(false)
     val progresState: LiveData<Boolean> = _progresState
 
-    fun savePet(inventory: Pet) {
+    fun saveToDo(inventory: ToDo) {
         viewModelScope.launch {
-                petRepository.savePet(inventory)
+            toDoRepository.saveToDo(inventory)
         }
     }
 
-    fun getListPets() {
+    fun getListToDos() {
         viewModelScope.launch {
 
-            _listPets.value = petRepository.getListPets()
+            _listToDos.value = toDoRepository.getListToDos()
         }
     }
 
-    fun deletePet(inventory: Pet) {
+    fun deleteToDo(inventory: ToDo) {
         viewModelScope.launch {
             _progresState.value = true
             try {
-                petRepository.deletePet(inventory)
+                toDoRepository.deleteToDo(inventory)
                 _progresState.value = false
             } catch (e: Exception) {
                 _progresState.value = false
@@ -47,16 +47,19 @@ class PetViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updatePet(inventory: Pet) {
+    fun updateToDo(inventory: ToDo) {
         viewModelScope.launch {
             _progresState.value = true
             try {
-                petRepository.updateRepositoy(inventory)
+                toDoRepository.updateRepositoy(inventory)
                 _progresState.value = false
             } catch (e: Exception) {
                 _progresState.value = false
             }
         }
     }
+
 
 }
+
+

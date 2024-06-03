@@ -10,12 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project.R
 import com.example.project.databinding.FragmentMainBinding
-import com.example.project.view.adapter.PetAdapter
-import com.example.project.viewmodel.PetViewModel
+//import com.example.project.view.adapter.PetAdapter
 
 class FragmentMain : Fragment() {
     private lateinit var binding: FragmentMainBinding
-    private val petViewModel: PetViewModel by viewModels()
+//    private val petViewModel: PetViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +27,8 @@ class FragmentMain : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        controladores()
-        observadorViewModel()
+          controladores()
+//        observadorViewModel()
 
     }
 
@@ -41,28 +40,23 @@ class FragmentMain : Fragment() {
 
     }
 
-    private fun observadorViewModel(){
-        observerListInventory()
-        //observerProgress()
-    }
-
-    private fun observerListInventory(){
-
-        petViewModel.getListPets()
-        petViewModel.listPets.observe(viewLifecycleOwner){ listPets ->
-            val recycler = binding.recyclerview
-            val layoutManager = LinearLayoutManager(context)
-            recycler.layoutManager = layoutManager
-            val adapter = PetAdapter(listPets, findNavController())
-            recycler.adapter = adapter
-            adapter.notifyDataSetChanged()
-
-        }
-
-    }
-//    private fun observerProgress(){
-//        petViewModel.progresState.observe(viewLifecycleOwner){status ->
-//            binding.progress.isVisible = status
-//        }
+//    private fun observadorViewModel(){
+//        observerListInventory()
+//        //observerProgress()
 //    }
+//
+//    private fun observerListInventory(){
+//
+//        petViewModel.getListPets()
+//        petViewModel.listPets.observe(viewLifecycleOwner){ listPets ->
+//            val recycler = binding.recyclerview
+//            val layoutManager = LinearLayoutManager(context)
+//            recycler.layoutManager = layoutManager
+//            val adapter = PetAdapter(listPets, findNavController())
+//            recycler.adapter = adapter
+//            adapter.notifyDataSetChanged()
+//
+//        }
+
+
 }
