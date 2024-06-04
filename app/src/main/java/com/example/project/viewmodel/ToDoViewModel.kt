@@ -4,62 +4,55 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-
 import com.example.project.model.ToDo
 import com.example.project.repository.ToDoRepository
-import kotlinx.coroutines.launch
+import com.google.firebase.firestore.FirebaseFirestore
 
 
-class ToDoViewModel(application: Application) : AndroidViewModel(application) {
-    val context = getApplication<Application>()
-    private val toDoRepository = ToDoRepository(context)
 
-    private val _listToDos = MutableLiveData<MutableList<ToDo>>()
-    val listToDos: LiveData<MutableList<ToDo>> get() = _listToDos
+class ToDoViewModel(private val application: Application) : AndroidViewModel(application) {
 
-    private val _progresState = MutableLiveData(false)
-    val progresState: LiveData<Boolean> = _progresState
+    private val toDoRepository = ToDoRepository(FirebaseFirestore.getInstance())
+    private val _toDoList = MutableLiveData<List<ToDo>>()
+    val toDoList: LiveData<List<ToDo>> = _toDoList
 
-    fun saveToDo(inventory: ToDo) {
-        viewModelScope.launch {
-            toDoRepository.saveToDo(inventory)
+    private val _addToDoResult = MutableLiveData<String?>()
+    val addToDoResult: LiveData<String?> = _addToDoResult
+
+    private val _updateToDoResult = MutableLiveData<String?>()
+    val updateToDoResult: LiveData<String?> = _updateToDoResult
+
+    private val _deleteToDoResult = MutableLiveData<String?>()
+    val deleteToDoResult: LiveData<String?> = _deleteToDoResult
+
+//    fun getToDoList() {
+//        toDoRepository.getToDoList { list, message ->
+//            if (list != null) {
+//                _toDoList.value = list
+//            } else {
+//                _toDoList.value = listOf()
+//            }
+//            if (message != null) {
+//                _addToDoResult.value = message
+//            }
+//        }
+//    }
+
+    fun addToDo(todo: ToDo) {
+        toDoRepository.addToDo(todo) { message ->
+            _addToDoResult.value = message
         }
     }
 
-    fun getListToDos() {
-        viewModelScope.launch {
-
-            _listToDos.value = toDoRepository.getListToDos()
+    fun updateToDo(todo: ToDo) {
+        toDoRepository.updateToDo(todo) { message ->
+            _updateToDoResult.value = message
         }
     }
 
-    fun deleteToDo(inventory: ToDo) {
-        viewModelScope.launch {
-            _progresState.value = true
-            try {
-                toDoRepository.deleteToDo(inventory)
-                _progresState.value = false
-            } catch (e: Exception) {
-                _progresState.value = false
-            }
-
+    fun deleteToDo(todoId: String) {
+        toDoRepository.deleteToDo(todoId) { message ->
+            _deleteToDoResult.value = message
         }
     }
-
-    fun updateToDo(inventory: ToDo) {
-        viewModelScope.launch {
-            _progresState.value = true
-            try {
-                toDoRepository.updateRepositoy(inventory)
-                _progresState.value = false
-            } catch (e: Exception) {
-                _progresState.value = false
-            }
-        }
-    }
-
-
 }
-
-

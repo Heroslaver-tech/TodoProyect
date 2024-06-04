@@ -1,16 +1,16 @@
 package com.example.project.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import java.io.Serializable
-@Entity
+import com.google.firebase.firestore.ServerTimestamp
+import java.util.Date
+
+
 data class ToDo(
-    @PrimaryKey(autoGenerate = true)
-    val id:Int = 0,
-    val titulo:String,
+
+    var id: String = "",
+    val titulo: String,
     val description: String,
     val status: Boolean,
-    val fecha: String,
-    val prioridad:String,
-
-    ): Serializable
+    @ServerTimestamp
+    val date: Date,
+    val prioridad: String,
+)
