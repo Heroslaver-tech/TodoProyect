@@ -10,4 +10,9 @@
     <color name="background">#1E282D</color>
     <color name="backgroundMain">#fff4fc</color>
     <color name="backgroundColorItem">#FF33EC</color>
+
+    <color name="backgroundWhite">#F6F1F1</color>
+    <color name="lightBlue">#AFD3E2</color>
+    <color name="blue">#19A7CE</color>
+    <color name="darkBlue">#146C94</color>
 </resources>
