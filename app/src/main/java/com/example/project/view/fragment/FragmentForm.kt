@@ -1,6 +1,5 @@
 package com.example.project.view.fragment
 
-
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,29 +8,31 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.project.databinding.FragmentFormBinding
 import com.example.project.model.ToDo
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.project.viewmodel.ToDoViewModel
 import java.util.Calendar
 import java.util.Date
-
 
 class FragmentForm : Fragment() {
 
     private lateinit var binding: FragmentFormBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private val db = FirebaseFirestore.getInstance()
     private val calendar = Calendar.getInstance()
     private var selectedDate: String? = null
+
+    // Usamos la delegación de propiedades 'by viewModels' para obtener una instancia del ViewModel
+    private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentFormBinding.inflate(inflater)
-
+    ): View {
+        binding = FragmentFormBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,7 +40,8 @@ class FragmentForm : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireActivity().getSharedPreferences("shared", Context.MODE_PRIVATE)
         setup()
-        listarToDos()
+        setupObservers()
+
     }
 
     private fun setup() {
@@ -50,6 +52,13 @@ class FragmentForm : Fragment() {
         binding.etFecha.setOnClickListener {
             showDatePickerDialog()
         }
+    }
+
+    private fun setupObservers() {
+        toDoViewModel.toDoList.observe(viewLifecycleOwner, Observer { toDoList ->
+            // Aquí puedes actualizar la UI con la lista de ToDos
+            listarToDos(toDoList)
+        })
 
     }
 
@@ -60,7 +69,7 @@ class FragmentForm : Fragment() {
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            { _, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+            { _, year, monthOfYear, dayOfMonth ->
                 selectedDate = "$dayOfMonth/${monthOfYear + 1}/$year"
                 binding.etFecha.setText(selectedDate)
             },
@@ -72,54 +81,32 @@ class FragmentForm : Fragment() {
         datePickerDialog.show()
     }
 
-
     private fun guardarToDo() {
         val titulo = binding.etTitulo.text.toString()
         val description = binding.etDescription.text.toString()
         val fecha = Date()
         val status = false
-        // Obtener el índice del elemento seleccionado en el Spinner
         val selectedPosition = binding.spPrioridad.selectedItemPosition
-        // Obtener el valor del elemento seleccionado utilizando el índice
         val prioridad = binding.spPrioridad.getItemAtPosition(selectedPosition).toString()
 
-        // Verificar que los campos obligatorios no estén vacíos
         if (titulo.isNotEmpty() && description.isNotEmpty() && prioridad.isNotEmpty()) {
-            val tarea = ToDo(titulo, description, status , fecha , prioridad )
-            // Crear un mapa de datos con los valores a guardar
-            db.collection("tarea").document(tarea.titulo).set(
-                hashMapOf(
-
-                "titulo" to titulo,
-                "description" to description,
-                "fecha" to fecha,
-                "status" to status,
-                "prioridad" to prioridad
-                )
-            )
-            listarToDos()
+            val tarea = ToDo(titulo, description, status, fecha, prioridad)
+            toDoViewModel.addToDo(tarea)
+            Toast.makeText(requireContext(), "Tarea guardada", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun listarToDos(){
-        db.collection("tarea").get().addOnSuccessListener {
-            var data = ""
-            for (document in it.documents) {
-                // Aquí puedes personalizar cómo deseas mostrar cada artículo en la lista
-                data += "titulo: ${document.get("titulo")} " +
-                        "description: ${document.get("description")} " +
-                        "status: ${document.get("status")}" +
-                        "prioridad: ${document.get("prioridad")}\n\n"
-                Log.d("listarToDos",data)
-
-            }
-
+    private fun listarToDos(toDoList: List<ToDo>) {
+        var data = ""
+        for (todo in toDoList) {
+            data += "titulo: ${todo.titulo} " +
+                    "description: ${todo.description} " +
+                    "status: ${todo.status} " +
+                    "prioridad: ${todo.prioridad}\n\n"
         }
+        Log.d("listarToDos", data)
     }
-
 
 }
-
-
-
-

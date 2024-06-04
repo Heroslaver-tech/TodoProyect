@@ -1,28 +1,44 @@
 package com.example.project.repository
+
 import com.example.project.model.ToDo
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.type.Date
+import kotlinx.coroutines.tasks.await
 
-class ToDoRepository(private val database: FirebaseFirestore) {
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
-    fun getToDoList(result: (List<ToDo>?, String?) -> Unit) {
-        database.collection("tareas")
-            .get()
-            .addOnSuccessListener { documents ->
-                val todoList = mutableListOf<ToDo>()
-                for (document in documents) {
-                    val todo = document.toObject(ToDo::class.java)
-                    todoList.add(todo)
-                }
-                result(todoList, null)
+class ToDoRepository {
+
+    private val db = FirebaseFirestore.getInstance()
+
+    suspend fun getToDoList(): List<ToDo> {
+        return try {
+            val documents = db.collection("tarea").get().await()
+            documents.map { document ->
+                document.toObject(ToDo::class.java)
             }
-            .addOnFailureListener { exception ->
-                result(null, exception.localizedMessage)
-            }
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
-    fun addToDo(todo: ToDo, result: (String?) -> Unit) {
-        database.collection("tareas")
-            .add(todo)
+
+    suspend fun addToDo(todo: ToDo): Boolean {
+        return try {
+            db.collection("tarea").document(todo.titulo).set(todo).await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun deleteToDo(titulo: String, result: (String?) -> Unit) {
+        db.collection("tarea")
+            .document(titulo)
+            .delete()
             .addOnSuccessListener {
                 result(null)
             }
@@ -32,24 +48,9 @@ class ToDoRepository(private val database: FirebaseFirestore) {
     }
 
     fun updateToDo(todo: ToDo, result: (String?) -> Unit) {
-        val todoId = todo
-        if (todoId != null) {
-            database.collection("tareas").document()
-                .set(todo)
-                .addOnSuccessListener {
-                    result(null)
-                }
-                .addOnFailureListener { exception ->
-                    result(exception.localizedMessage)
-                }
-        } else {
-            result("ID de tarea nulo")
-        }
-    }
-
-    fun deleteToDo(todoId: String, result: (String?) -> Unit) {
-        database.collection("tareas").document(todoId)
-            .delete()
+        db.collection("tarea")
+            .document(todo.titulo)
+            .set(todo)
             .addOnSuccessListener {
                 result(null)
             }
@@ -57,6 +58,8 @@ class ToDoRepository(private val database: FirebaseFirestore) {
                 result(exception.localizedMessage)
             }
     }
+
+
 }
 
 
@@ -68,82 +71,56 @@ class ToDoRepository(private val database: FirebaseFirestore) {
 
 
 
-//import com.example.project.model.ToDo
-//import com.google.firebase.firestore.FirebaseFirestore
-//import kotlinx.coroutines.tasks.await
-//
-//class ToDoRepository {
-//    private val db = FirebaseFirestore.getInstance()
-//
-//    suspend fun createToDo(todo: ToDo): Result<Unit> {
-//        return try {
-//            db.collection("tareas").add(todo).await()
-//            Result.success(Unit)
-//        } catch (e: Exception) {
-//            Result.failure(e)
+
+
+
+
+
+
+
+//    suspend fun getToDos(): List<ToDo> {
+//        return suspendCoroutine { continuation ->
+//            db.collection("tarea")
+//                .get()
+//                .addOnSuccessListener { querySnapshot ->
+//                    val toDos = mutableListOf<ToDo>()
+//                    for (document in querySnapshot.documents) {
+//                        val titulo = document.get("titulo") as String
+//                        val description = document.get("description") as String
+//                        val status = document.get("status") as Boolean
+//                        val fecha = (document.get("fecha") as Timestamp).toDate()
+//                        val prioridad = document.get("prioridad") as String
+//                        val toDo = ToDo(titulo, description, status, fecha, prioridad)
+//                        toDos.add(toDo)
+//                    }
+//                    continuation.resume(toDos)
+//                }
+//                .addOnFailureListener { exception ->
+//                    continuation.resumeWithException(exception)
+//                }
 //        }
 //    }
 //
-//    suspend fun getToDos(): Result<List<ToDo>> {
-//        return try {
-//            val snapshot = db.collection("tareas").get().await()
-//            val todos = snapshot.toObjects(ToDo::class.java)
-//            Result.success(todos)
-//        } catch (e: Exception) {
-//            Result.failure(e)
-//        }
-//    }
-//
-//    suspend fun updateToDo(id: String, todo: ToDo): Result<Unit> {
-//        return try {
-//            db.collection("tareas").document(id).set(todo).await()
-//            Result.success(Unit)
-//        } catch (e: Exception) {
-//            Result.failure(e)
-//        }
-//    }
-//
-//    suspend fun deleteToDo(id: String): Result<Unit> {
-//        return try {
-//            db.collection("tareas").document(id).delete().await()
-//            Result.success(Unit)
-//        } catch (e: Exception) {
-//            Result.failure(e)
+//    suspend fun saveToDo(titulo: String, description: String, status: Boolean, fecha: Date, prioridad: String) {
+//        return suspendCoroutine { continuation ->
+//            db.collection("tarea").document(titulo).set(
+//                hashMapOf(
+//                    "titulo" to titulo,
+//                    "description" to description,
+//                    "fecha" to fecha,
+//                    "status" to status,
+//                    "prioridad" to prioridad
+//                )
+//            )
+//                .addOnSuccessListener {
+//                    continuation.resume(Unit)
+//                }
+//                .addOnFailureListener { exception ->
+//                    continuation.resumeWithException(exception)
+//                }
 //        }
 //    }
 //}
-//import android.content.Context
-//import com.example.project.model.ToDo
-//
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.withContext
-//
-//
-//class ToDoRepository(val context: Context){
-//    private var toDoDao: ToDoDao = ToDoDB.getDatabase(context).toDoDao()
-//    //private var apiService: ApiService = ApiUtils.getApiService()
-//    suspend fun saveToDo(inventory: ToDo){
-//        withContext(Dispatchers.IO){
-//            toDoDao.saveToDo(inventory)
-//        }
-//    }
-//
-//    suspend fun getListToDos():MutableList<ToDo>{
-//        return withContext(Dispatchers.IO){
-//            toDoDao.getListToDo()
-//        }
-//    }
-//
-//    suspend fun deleteToDo(inventory: ToDo){
-//        withContext(Dispatchers.IO){
-//            toDoDao.deleteToDo(inventory)
-//        }
-//    }
-//
-//    suspend fun updateRepositoy(inventory: ToDo){
-//        withContext(Dispatchers.IO){
-//            toDoDao.updateInventory(inventory)
-//        }
-//    }
-//
-//}
+
+
+
