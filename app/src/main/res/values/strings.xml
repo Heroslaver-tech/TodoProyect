@@ -4,5 +4,9 @@
     <string name="fragment_a">Fragment A</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="content">Dog image</string>
+    <string name="content">content</string>
+    <string name="GetStarted">Get started</string>
+    <string name="homeTittle">Day Planner</string>
+    <string name="homeContent1">Dont procrastinate</string>
+    <string name="homeContent2">be happy with Day planner</string>
 </resources>
