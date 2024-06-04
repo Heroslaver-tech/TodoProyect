@@ -32,9 +32,9 @@ class ToDoRepository(private val database: FirebaseFirestore) {
     }
 
     fun updateToDo(todo: ToDo, result: (String?) -> Unit) {
-        val todoId = todo.id
+        val todoId = todo
         if (todoId != null) {
-            database.collection("tareas").document(todoId)
+            database.collection("tareas").document()
                 .set(todo)
                 .addOnSuccessListener {
                     result(null)

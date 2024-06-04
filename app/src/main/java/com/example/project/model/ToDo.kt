@@ -6,11 +6,10 @@ import java.util.Date
 
 data class ToDo(
 
-    var id: String = "",
     val titulo: String,
     val description: String,
     val status: Boolean,
     @ServerTimestamp
-    val date: Date,
+    val date: Date = Date(),
     val prioridad: String,
 )
