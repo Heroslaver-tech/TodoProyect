@@ -42,6 +42,7 @@ class FragmentForm : Fragment() {
         setup()
         setupObservers()
 
+
     }
 
     private fun setup() {
@@ -57,8 +58,10 @@ class FragmentForm : Fragment() {
     private fun setupObservers() {
         toDoViewModel.toDoList.observe(viewLifecycleOwner, Observer {
             // Aquí puedes actualizar la UI con la lista de ToDos
-//            listarToDos(toDoList)
+            //listarToDos()
         })
+
+
 
     }
 
@@ -97,7 +100,7 @@ class FragmentForm : Fragment() {
             Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
-
+//
 //    private fun listarToDos(toDoList: List<ToDo>) {
 //        var data = ""
 //        for (todo in toDoList) {

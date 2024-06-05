@@ -27,8 +27,6 @@ class FragmentMain : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
-
         return binding.root
     }
 
@@ -37,7 +35,13 @@ class FragmentMain : Fragment() {
         controladores()
         observadorViewModel()
         Log.d("getToDoList 5", "ingreso aqui")
+    }
 
+    private fun setupRecyclerView() {
+        binding.recyclerview.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = ToDoAdapter(emptyList(), findNavController())
+        }
     }
 
     //Redirige cuando se presione el boton de agregar
@@ -52,7 +56,7 @@ class FragmentMain : Fragment() {
     }
 //    private fun observerListInventory(){
 //
-//        toDoViewModel.loadToDoList()
+//        toDoViewModel.fetchToDoList()
 //        toDoViewModel.toDoList.observe(viewLifecycleOwner){toDoList ->
 //            val recycler = binding.recyclerview
 //            val layoutManager = LinearLayoutManager(context)

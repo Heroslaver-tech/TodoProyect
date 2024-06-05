@@ -15,23 +15,32 @@ class ToDoRepository {
 
     private val db = FirebaseFirestore.getInstance()
 
-    suspend fun getToDos(): Result<List<ToDo>> {
-        return try {
-            val snapshot = db.collection("tareas").get().await()
-            val todos = snapshot.toObjects(ToDo::class.java)
-            Result.success(todos)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-//    fun getToDos():LiveData<MutableList<ToDo>> {
-//        val mutableData = MutableLiveData<MutableList<ToDo>>()
-//        mutableData.value = iterator {  }
-//
+//    suspend fun getToDos(): Result<List<ToDo>> {
+//        return try {
+//            val snapshot = db.collection("tareas").get().await()
+//            val todos = snapshot.toObjects(ToDo::class.java)
+//            Result.success(todos)
+//        } catch (e: Exception) {
+//            Result.failure(e)
+//        }
 //    }
 
+    fun getListToDos(): LiveData<MutableList<ToDo>> {
+        val mutableData = MutableLiveData<MutableList<ToDo>>()
+        db.collection("tarea").get().addOnSuccessListener { result ->
+            val toDoList = mutableListOf<ToDo>()
 
+            for (document in result) {
+                val toDo = document.toObject(ToDo::class.java)
+                toDoList.add(toDo)
+            }
+            mutableData.value = toDoList
+        }.addOnFailureListener { exception ->
+            // Manejo de errores
+        }
+
+        return mutableData
+    }
 
     suspend fun addToDo(todo: ToDo): Boolean {
         return try {
@@ -57,9 +66,10 @@ class ToDoRepository {
             .addOnSuccessListener { result(null) }
             .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
-
-
 }
+
+
+
 
 
 

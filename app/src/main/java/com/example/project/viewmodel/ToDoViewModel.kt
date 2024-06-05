@@ -8,7 +8,6 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.project.model.ToDo
 import com.example.project.repository.ToDoRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -17,9 +16,7 @@ class ToDoViewModel : ViewModel() {
     private val repository = ToDoRepository()
 
     private val _toDoList = MutableLiveData<MutableList<ToDo>>()
-    val toDoList: MutableLiveData<MutableList<ToDo>> get() = _toDoList
-
-
+    val toDoList: LiveData<MutableList<ToDo>> get() = _toDoList
 
     private val _progressState = MutableLiveData<Boolean>()
     val progressState: LiveData<Boolean> = _progressState
@@ -28,22 +25,17 @@ class ToDoViewModel : ViewModel() {
 
 //    fun loadToDoList() {
 //        viewModelScope.launch {
-//            _toDoList.value = repository.getToDoList()
-//            Log.d("getToDoList 2", toDoList.value.toString())
+//            _toDoList.value = repository.getToDos()
+//            //Log.d("getToDoList 2", toDoList.value.toString())
 //        }
 //    }
 
-//    fun fetchToDoList():LiveData<MutableList<ToDo>>{
-//        val mutableData = MutableLiveData<MutableList<ToDo>>()
-//        repository.getToDos().observeForever {
-//
-//        }
-//    }
-
-
-    fun getToDos() = liveData(Dispatchers.IO) {
-        val result = repository.getToDos()
-        emit(result)
+    fun fetchToDoList():LiveData<MutableList<ToDo>>{
+        val mutableData = MutableLiveData<MutableList<ToDo>>()
+        repository.getListToDos().observeForever { todolist ->
+            mutableData.value = todolist
+        }
+        return mutableData
     }
 
 
@@ -53,7 +45,8 @@ class ToDoViewModel : ViewModel() {
             val success = repository.addToDo(todo)
             if (success) {
                 //loadToDoList()
-                getToDos()
+                //getToDos()
+                fetchToDoList()
             }
             _progressState.value = false
         }
@@ -66,7 +59,7 @@ class ToDoViewModel : ViewModel() {
                 repository.deleteToDo(titulo) { error ->
                     if (error == null) {
                         //loadToDoList()
-                            getToDos()
+                        fetchToDoList()
                     }
                 }
             } catch (e: Exception) {

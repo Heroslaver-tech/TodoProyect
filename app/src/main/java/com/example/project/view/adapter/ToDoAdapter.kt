@@ -24,6 +24,7 @@ class ToDoAdapter(private val listToDo: List<ToDo>, private val navController: N
     override fun getItemCount(): Int {
         return listToDo.size
     }
+
 }
 
 
