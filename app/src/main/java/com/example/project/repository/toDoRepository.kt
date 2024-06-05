@@ -1,9 +1,10 @@
 package com.example.project.repository
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.project.model.ToDo
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.type.Date
 import kotlinx.coroutines.tasks.await
 
 import kotlin.coroutines.resume
@@ -14,16 +15,22 @@ class ToDoRepository {
 
     private val db = FirebaseFirestore.getInstance()
 
-    suspend fun getToDoList(): List<ToDo> {
+    suspend fun getToDos(): Result<List<ToDo>> {
         return try {
-            val documents = db.collection("tarea").get().await()
-            documents.map { document ->
-                document.toObject(ToDo::class.java)
-            }
+            val snapshot = db.collection("tareas").get().await()
+            val todos = snapshot.toObjects(ToDo::class.java)
+            Result.success(todos)
         } catch (e: Exception) {
-            emptyList()
+            Result.failure(e)
         }
     }
+
+//    fun getToDos():LiveData<MutableList<ToDo>> {
+//        val mutableData = MutableLiveData<MutableList<ToDo>>()
+//        mutableData.value = iterator {  }
+//
+//    }
+
 
 
     suspend fun addToDo(todo: ToDo): Boolean {
@@ -39,33 +46,20 @@ class ToDoRepository {
         db.collection("tarea")
             .document(titulo)
             .delete()
-            .addOnSuccessListener {
-                result(null)
-            }
-            .addOnFailureListener { exception ->
-                result(exception.localizedMessage)
-            }
+            .addOnSuccessListener { result(null) }
+            .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
 
     fun updateToDo(todo: ToDo, result: (String?) -> Unit) {
         db.collection("tarea")
             .document(todo.titulo)
             .set(todo)
-            .addOnSuccessListener {
-                result(null)
-            }
-            .addOnFailureListener { exception ->
-                result(exception.localizedMessage)
-            }
+            .addOnSuccessListener { result(null) }
+            .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
 
 
 }
-
-
-
-
-
 
 
 
@@ -101,26 +95,5 @@ class ToDoRepository {
 //        }
 //    }
 //
-//    suspend fun saveToDo(titulo: String, description: String, status: Boolean, fecha: Date, prioridad: String) {
-//        return suspendCoroutine { continuation ->
-//            db.collection("tarea").document(titulo).set(
-//                hashMapOf(
-//                    "titulo" to titulo,
-//                    "description" to description,
-//                    "fecha" to fecha,
-//                    "status" to status,
-//                    "prioridad" to prioridad
-//                )
-//            )
-//                .addOnSuccessListener {
-//                    continuation.resume(Unit)
-//                }
-//                .addOnFailureListener { exception ->
-//                    continuation.resumeWithException(exception)
-//                }
-//        }
-//    }
-//}
-
 
 

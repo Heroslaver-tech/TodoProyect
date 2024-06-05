@@ -1,6 +1,5 @@
 package com.example.project.view.viewholder
 
-
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
@@ -24,3 +23,5 @@ class ToDoViewHolder(binding: PetInventoryBinding, navController: NavController)
         }
     }
 }
+
+

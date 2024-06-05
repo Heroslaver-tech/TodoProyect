@@ -1,4 +1,4 @@
-package com.example.project.view.Adapter
+package com.example.project.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,9 @@ import com.example.project.databinding.PetInventoryBinding
 import com.example.project.model.ToDo
 import com.example.project.view.viewholder.ToDoViewHolder
 
+
 class ToDoAdapter(private val listToDo: List<ToDo>, private val navController: NavController): RecyclerView.Adapter<ToDoViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder {
         val binding = PetInventoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ToDoViewHolder(binding, navController)
@@ -23,3 +25,6 @@ class ToDoAdapter(private val listToDo: List<ToDo>, private val navController: N
         return listToDo.size
     }
 }
+
+
+

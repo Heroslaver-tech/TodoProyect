@@ -35,7 +35,7 @@ class FragmentDetails : Fragment() {
 
     private fun controladores() {
         binding.btnDelete.setOnClickListener {
-            deleteInventory()
+            //deleteInventory()
         }
 
         binding.fbEdit.setOnClickListener {
@@ -52,11 +52,11 @@ class FragmentDetails : Fragment() {
 
     }
 
-        private fun deleteInventory(){
-            toDoViewModel.deleteToDo(receivedToDo.toString())
-            toDoViewModel.loadToDoList()
-            findNavController().popBackStack()
-        }
+//        private fun deleteInventory(){
+//            toDoViewModel.deleteToDo(receivedToDo.toString())
+//            toDoViewModel.loadToDoList()
+//            findNavController().popBackStack()
+//        }
 
         private fun goBack() {
             binding.toolbarIcon.setOnClickListener {

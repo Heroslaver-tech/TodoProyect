@@ -55,9 +55,9 @@ class FragmentForm : Fragment() {
     }
 
     private fun setupObservers() {
-        toDoViewModel.toDoList.observe(viewLifecycleOwner, Observer { toDoList ->
+        toDoViewModel.toDoList.observe(viewLifecycleOwner, Observer {
             // Aquí puedes actualizar la UI con la lista de ToDos
-            listarToDos(toDoList)
+//            listarToDos(toDoList)
         })
 
     }
@@ -98,15 +98,16 @@ class FragmentForm : Fragment() {
         }
     }
 
-    private fun listarToDos(toDoList: List<ToDo>) {
-        var data = ""
-        for (todo in toDoList) {
-            data += "titulo: ${todo.titulo} " +
-                    "description: ${todo.description} " +
-                    "status: ${todo.status} " +
-                    "prioridad: ${todo.prioridad}\n\n"
-        }
-        Log.d("listarToDos", data)
-    }
+//    private fun listarToDos(toDoList: List<ToDo>) {
+//        var data = ""
+//        for (todo in toDoList) {
+//            data += "titulo: ${todo.titulo} " +
+//                    "description: ${todo.description} " +
+//                    "status: ${todo.status} " +
+//                    "prioridad: ${todo.prioridad}\n\n"
+//        }
+//        Log.d("listarToDos", data)
+//    }
+
 
 }
