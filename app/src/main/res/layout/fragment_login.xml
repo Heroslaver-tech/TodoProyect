@@ -25,7 +25,6 @@
             android:text="Welcome back!"
             android:textSize="28sp"
             android:textStyle="bold"
-
             android:layout_marginTop="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -135,8 +134,8 @@
 
         <LinearLayout
             android:id="@+id/llRegisterContainer"
-            android:layout_width="214dp"
-            android:layout_height="21dp"
+            android:layout_width="219dp"
+            android:layout_height="32dp"
             android:layout_marginTop="24dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
