@@ -47,7 +47,7 @@ class FragmentForm : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         drivers()
-        goBack()
+        //goBack()
     }
 
     private fun drivers() {
@@ -158,9 +158,9 @@ class FragmentForm : Fragment() {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun goBack() {
+    /*private fun goBack() {
         binding.toolbarIcon.setOnClickListener {
             findNavController().popBackStack()
         }
-    }
+    }*/
 }
