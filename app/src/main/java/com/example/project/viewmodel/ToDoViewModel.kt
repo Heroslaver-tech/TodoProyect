@@ -21,15 +21,6 @@ class ToDoViewModel : ViewModel() {
     private val _progressState = MutableLiveData<Boolean>()
     val progressState: LiveData<Boolean> = _progressState
 
-
-
-//    fun loadToDoList() {
-//        viewModelScope.launch {
-//            _toDoList.value = repository.getToDos()
-//            //Log.d("getToDoList 2", toDoList.value.toString())
-//        }
-//    }
-
     fun fetchToDoList():LiveData<MutableList<ToDo>>{
         val mutableData = MutableLiveData<MutableList<ToDo>>()
         repository.getListToDos().observeForever { todolist ->
@@ -38,14 +29,11 @@ class ToDoViewModel : ViewModel() {
         return mutableData
     }
 
-
     fun addToDo(todo: ToDo) {
         viewModelScope.launch {
             _progressState.value = true
             val success = repository.addToDo(todo)
             if (success) {
-                //loadToDoList()
-                //getToDos()
                 fetchToDoList()
             }
             _progressState.value = false
