@@ -14,5 +14,5 @@
     <color name="backgroundWhite">#F6F1F1</color>
     <color name="lightBlue">#AFD3E2</color>
     <color name="darkBlue">#146C94</color>
-
+    <color name="colorAccent">#B7E2E6</color>
 </resources>
