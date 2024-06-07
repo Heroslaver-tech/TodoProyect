@@ -55,11 +55,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:text="Mary Jane"
+                android:text="@string/tittleMain"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/open_sans"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="30sp"/>
 
 
             <TextView

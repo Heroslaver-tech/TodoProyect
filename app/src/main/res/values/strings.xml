@@ -23,5 +23,6 @@
     <string name="homeContent2">be happy with Day planner</string>
     <string name="Sign_In">Sign In</string>
     <string name="Sign_off">Sign off</string>
+    <string name="tittleMain">Your day planner</string>
 
 </resources>
