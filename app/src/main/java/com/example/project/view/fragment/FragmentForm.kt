@@ -21,13 +21,12 @@ import java.util.Date
 import com.example.project.R
 
 import  androidx.appcompat.app.AppCompatActivity
-import java.util.Calendar
-import java.util.Date
+
 class FragmentForm : Fragment() {
     private val calendar = Calendar.getInstance()
     private lateinit var binding: FragmentFormBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private val calendar = Calendar.getInstance()
+
     private var selectedDate: String? = null
     private val toDoViewModel: ToDoViewModel by viewModels()
 
@@ -56,11 +55,6 @@ class FragmentForm : Fragment() {
             showDatePickerDialog()
         }
     }
-    private fun showDatePickerDialog() {
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
     private fun showDatePickerDialog() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
