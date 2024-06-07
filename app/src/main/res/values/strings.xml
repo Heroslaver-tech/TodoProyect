@@ -4,7 +4,6 @@
     <string name="fragment_a">Fragment Start</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="content">Dog image</string>
     <string name="start">Get Started</string>
     <string name="register">Register</string>
     <string name="password">Password</string>
@@ -15,14 +14,13 @@
     <string name="login">Sign In</string>
     <string name="title_login">Login Firebase</string>
     <string name="google">Sign in with Google</string>
-    <string-array name="prioridad">
-        <item>Alta</item>
-        <item>Media</item>
-        <item>Baja</item>
+    <string name="login_text"><u>Login</u></string>
+    <string name="register_text"><u>Register</u></string>
+    <string name="content">content</string>
+    <string name="GetStarted">Get started</string>
+    <string name="homeTittle">Day Planner</string>
+    <string name="homeContent1">Dont procrastinate</string>
+    <string name="homeContent2">be happy with Day planner</string>
+    <string name="Sign_In">Sign In</string>
 
-    </string-array>
-    <string-array name="am_pm">
-        <item>AM</item>
-        <item>PM</item>
-    </string-array>
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentStart">
+    app:startDestination="@id/fragmentHome">
 
     <fragment
         android:id="@+id/fragmentLogin"
@@ -36,7 +36,11 @@
         android:id="@+id/fragmentForm"
         android:name="com.example.project.view.fragment.FragmentForm"
         android:label="FragmentForm"
-        tools:layout = "@layout/fragment_form"/>
+        tools:layout = "@layout/fragment_form">
+        <action
+            android:id="@+id/action_fragmentForm_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentDetails"
         android:name="com.example.project.view.fragment.FragmentDetails"
@@ -60,12 +64,12 @@
             app:destination="@id/fragmentMain" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentStart"
-        android:name="com.example.project.view.fragment.FragmentStart"
+        android:id="@+id/fragmentHome"
+        android:name="com.example.project.view.fragment.FragmentHome"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_fragmentStart_to_fragmentLogin"
+            android:id="@+id/action_fragmentHome_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
     </fragment>
     <fragment
@@ -76,5 +80,8 @@
         <action
             android:id="@+id/action_fragmentRegister_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
     </fragment>
 </navigation>

@@ -43,7 +43,6 @@ class FragmentLogin : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         sharedPreferences = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
         setupGoogleSignIn()
-        setup()
         sesion()
         drivers()
         setupTextWatchers()
@@ -94,16 +93,12 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    private fun setup() {
-        binding.btnLogin.isEnabled = false
-    }
-
     private fun drivers() {
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
 
-        binding.tvRegister.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentLogin_to_fragmentRegister)
         }
     }
@@ -118,6 +113,12 @@ class FragmentLogin : Fragment() {
 
         if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(context, "Please complete all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Verify if email is valid
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(context, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -142,9 +143,7 @@ class FragmentLogin : Fragment() {
 
     private fun setupTextWatchers() {
         val textWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateInputs()
-            }
+            override fun afterTextChanged(s: Editable?) {}
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -155,10 +154,4 @@ class FragmentLogin : Fragment() {
         binding.etPass.addTextChangedListener(textWatcher)
     }
 
-    private fun validateInputs() {
-        val email = binding.etEmail.text.toString()
-        val pass = binding.etPass.text.toString()
-
-        binding.btnLogin.isEnabled = email.isNotEmpty() && pass.isNotEmpty()
-    }
 }

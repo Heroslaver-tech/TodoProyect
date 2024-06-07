@@ -5,27 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.project.R
-import com.example.project.databinding.FragmentStartBinding
-import com.example.project.viewmodel.PetViewModel
+import com.example.project.databinding.FragmentHomeBinding
 
-class FragmentStart : Fragment() {
+class FragmentHome : Fragment() {
 
-    private lateinit var binding: FragmentStartBinding
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStartBinding.inflate(inflater)
+        binding = FragmentHomeBinding.inflate(inflater)
         drivers()
 
         return binding.root
     }
     private fun drivers() {
-        binding.btnStart.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentStart_to_fragmentLogin)
+        binding.getStartedButton.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentHome_to_fragmentLogin)
         }
     }
 }
