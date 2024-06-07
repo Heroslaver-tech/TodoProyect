@@ -12,11 +12,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.project.databinding.FragmentFormBinding
 import com.example.project.model.ToDo
 import com.example.project.viewmodel.ToDoViewModel
 import java.util.Calendar
 import java.util.Date
+import com.example.project.R
+
 
 class FragmentForm : Fragment() {
 
@@ -24,8 +27,6 @@ class FragmentForm : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private val calendar = Calendar.getInstance()
     private var selectedDate: String? = null
-
-    // Usamos la delegación de propiedades 'by viewModels' para obtener una instancia del ViewModel
     private val toDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
@@ -40,7 +41,6 @@ class FragmentForm : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireActivity().getSharedPreferences("shared", Context.MODE_PRIVATE)
         setup()
-        setupObservers()
 
 
     }
@@ -53,14 +53,6 @@ class FragmentForm : Fragment() {
         binding.etFecha.setOnClickListener {
             showDatePickerDialog()
         }
-    }
-
-    private fun setupObservers() {
-        toDoViewModel.toDoList.observe(viewLifecycleOwner, Observer {
-            // Aquí puedes actualizar la UI con la lista de ToDos
-            //listarToDos()
-        })
-
     }
 
     private fun showDatePickerDialog() {
@@ -91,24 +83,13 @@ class FragmentForm : Fragment() {
         val prioridad = binding.spPrioridad.getItemAtPosition(selectedPosition).toString()
 
         if (titulo.isNotEmpty() && description.isNotEmpty() && prioridad.isNotEmpty()) {
-            val tarea = ToDo(titulo, description, status, fecha, prioridad)
+            val tarea = ToDo(titulo = titulo, description = description, status = status, date = fecha, prioridad = prioridad)
             toDoViewModel.addToDo(tarea)
             Toast.makeText(requireContext(), "Tarea guardada", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_fragmentForm_to_fragmentMain)
+
         } else {
             Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
-//
-//    private fun listarToDos(toDoList: List<ToDo>) {
-//        var data = ""
-//        for (todo in toDoList) {
-//            data += "titulo: ${todo.titulo} " +
-//                    "description: ${todo.description} " +
-//                    "status: ${todo.status} " +
-//                    "prioridad: ${todo.prioridad}\n\n"
-//        }
-//        Log.d("listarToDos", data)
-//    }
-
-
 }

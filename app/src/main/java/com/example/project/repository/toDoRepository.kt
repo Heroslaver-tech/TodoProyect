@@ -14,6 +14,7 @@ import kotlin.coroutines.suspendCoroutine
 class ToDoRepository {
 
     private val db = FirebaseFirestore.getInstance()
+    private val todoCollection = db.collection("tarea")
 
     fun getListToDos(): LiveData<MutableList<ToDo>> {
         val mutableData = MutableLiveData<MutableList<ToDo>>()
@@ -39,6 +40,46 @@ class ToDoRepository {
         } catch (e: Exception) {
             false
         }
+    }
+
+    suspend fun getToDoList(): MutableList<ToDo> {
+        return try {
+            Log.d(TAG, "Fetching todos from Firestore...") // Log inicial
+            val querySnapshot = todoCollection.get().await()
+            Log.d(TAG, "Query snapshot received: ${querySnapshot.documents.size} documents found")
+
+            val todoList = mutableListOf<ToDo>()
+            for (document in querySnapshot.documents) {
+                Log.d(TAG, "Processing document: ${document.id}")
+                val todo = document.toObject(ToDo::class.java)
+                if (todo != null) {
+                    todoList.add(todo)
+                    Log.d(TAG, "Added todo: $todo")
+                } else {
+                    Log.w(TAG, "Failed to convert document to ToDo: ${document.id}")
+                }
+            }
+            Log.d(TAG, "Fetched todos: $todoList")
+            todoList
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching todos: ${e.message}", e)
+            mutableListOf() // Retornar una lista mutable vacía en caso de error
+        }
+    }
+
+    companion object {
+        private const val TAG = "ToDoRepository"
+    }
+
+    fun updateToDoStatus(toDoTitulo: String, isChecked: Boolean) {
+        val docRef = todoCollection.document(toDoTitulo)
+        docRef.update("status", isChecked)
+            .addOnSuccessListener {
+                Log.d(TAG, "ToDo status updated successfully")
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error updating ToDo status", e)
+            }
     }
 
     fun deleteToDo(titulo: String, result: (String?) -> Unit) {

@@ -9,18 +9,22 @@ import androidx.lifecycle.viewModelScope
 import com.example.project.model.ToDo
 import com.example.project.repository.ToDoRepository
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 
 class ToDoViewModel : ViewModel() {
 
     private val repository = ToDoRepository()
 
-    private val _toDoList = MutableLiveData<MutableList<ToDo>>()
-    val toDoList: LiveData<MutableList<ToDo>> get() = _toDoList
-
     private val _progressState = MutableLiveData<Boolean>()
     val progressState: LiveData<Boolean> = _progressState
 
+    private val _toDoList = MutableLiveData<List<ToDo>>()
+    val toDoList: LiveData<List<ToDo>> get() = _toDoList
+
+    // LiveData para manejar errores
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
     fun fetchToDoList():LiveData<MutableList<ToDo>>{
         val mutableData = MutableLiveData<MutableList<ToDo>>()
         repository.getListToDos().observeForever { todolist ->
@@ -38,6 +42,36 @@ class ToDoViewModel : ViewModel() {
             }
             _progressState.value = false
         }
+    }
+
+    // Función para obtener la lista de tareas
+    fun getToDoList() {
+        viewModelScope.launch {
+            try {
+                val list = repository.getToDoList()
+                _toDoList.value = list
+                Log.d(TAG, "ViewModel ToDo list: $list") // Añadir este log
+                _error.value = null // Resetear el error si la carga fue exitosa
+            } catch (e: Exception) {
+                _error.value = "Error fetching todos: ${e.message}"
+                Log.e(TAG, "Error in ViewModel: ${e.message}", e) // Añadir este log
+            }
+        }
+    }
+
+    fun updateToDoStatus(toDoTitulo: String, isChecked: Boolean) {
+        viewModelScope.launch {
+            try {
+                Log.e(TAG, "toDoTitulo: ${toDoTitulo}")
+                repository.updateToDoStatus(toDoTitulo, isChecked)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error updating ToDo status: ${e.message}", e)
+            }
+        }
+    }
+
+    companion object {
+        private const val TAG = "TodoViewModel"
     }
 
     fun deleteToDo(titulo: String) {
