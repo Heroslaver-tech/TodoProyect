@@ -24,8 +24,9 @@ import androidx.navigation.findNavController
 import com.example.project.R
 import com.example.project.webservices.Raza
 import com.example.project.databinding.FragmentFormBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class FragmentForm : Fragment() {
 
     private lateinit var binding: FragmentFormBinding

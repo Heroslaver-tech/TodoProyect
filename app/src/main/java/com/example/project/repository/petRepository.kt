@@ -8,10 +8,12 @@ import com.example.project.model.Pet
 //import com.example.project.webservice.ApiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PetRepository(val context: Context){
-    private var petDao:PetDao = PetDB.getDatabase(context).petDao()
-    //private var apiService: ApiService = ApiUtils.getApiService()
+class PetRepository @Inject constructor(
+    private val petDao: PetDao
+){
+
     suspend fun savePet(inventory:Pet){
         withContext(Dispatchers.IO){
             petDao.savePet(inventory)

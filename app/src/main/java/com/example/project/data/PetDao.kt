@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.project.model.Pet
+import javax.inject.Inject
 
 @Dao
 interface PetDao {

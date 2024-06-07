@@ -11,7 +11,9 @@ import com.example.project.R
 import com.example.project.databinding.FragmentDetailsBinding
 import com.example.project.model.Pet
 import com.example.project.viewmodel.PetViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentDetails : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private val petViewModel: PetViewModel by viewModels()

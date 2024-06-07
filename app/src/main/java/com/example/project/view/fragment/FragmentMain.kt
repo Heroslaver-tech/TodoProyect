@@ -12,7 +12,9 @@ import com.example.project.R
 import com.example.project.databinding.FragmentMainBinding
 import com.example.project.view.adapter.PetAdapter
 import com.example.project.viewmodel.PetViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentMain : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val petViewModel: PetViewModel by viewModels()

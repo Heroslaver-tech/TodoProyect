@@ -18,8 +18,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.project.R
 import com.example.project.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 
+@AndroidEntryPoint
 class FragmentLogin : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding

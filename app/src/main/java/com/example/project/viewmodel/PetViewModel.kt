@@ -4,15 +4,18 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.project.model.Pet
 import com.example.project.repository.PetRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class PetViewModel(application: Application) : AndroidViewModel(application) {
-    val context = getApplication<Application>()
-    private val petRepository = PetRepository(context)
+@HiltViewModel
+class PetViewModel @Inject constructor(
+    private val petRepository: PetRepository
+):ViewModel() {
 
 
     private val _listPets = MutableLiveData<MutableList<Pet>>()
