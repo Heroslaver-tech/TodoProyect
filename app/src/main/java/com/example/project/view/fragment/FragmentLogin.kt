@@ -1,7 +1,6 @@
 package com.example.project.view.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,6 +30,11 @@ class FragmentLogin : Fragment() {
     private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        handleSignInResult(task)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,18 +57,18 @@ class FragmentLogin : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         binding.btnGoogle.setSize(SignInButton.SIZE_WIDE)
-        setGooglePlusButtonText(binding.btnGoogle, "Sign in with Google")
+        setGooglePlusButtonText(binding.btnGoogle)
 
         binding.btnGoogle.setOnClickListener {
             signInWithGoogle()
         }
     }
 
-    private fun setGooglePlusButtonText(signInButton: SignInButton, buttonText: String) {
+    private fun setGooglePlusButtonText(signInButton: SignInButton) {
         for (i in 0 until signInButton.childCount) {
             val v = signInButton.getChildAt(i)
             if (v is Button) {
-                v.text = buttonText
+                v.text = "Sign in with Google"
                 return
             }
         }
@@ -72,15 +77,7 @@ class FragmentLogin : Fragment() {
     private fun signInWithGoogle() {
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            signInLauncher.launch(signInIntent)
         }
     }
 
@@ -89,6 +86,7 @@ class FragmentLogin : Fragment() {
             val account = completedTask.getResult(Exception::class.java)
             if (account != null) {
                 // Handle successful sign-in here
+                Toast.makeText(context, "Google Sign-In successful", Toast.LENGTH_SHORT).show()
                 goToHome()
             }
         } catch (e: Exception) {
@@ -162,9 +160,5 @@ class FragmentLogin : Fragment() {
         val pass = binding.etPass.text.toString()
 
         binding.btnLogin.isEnabled = email.isNotEmpty() && pass.isNotEmpty()
-    }
-
-    companion object {
-        private const val RC_SIGN_IN = 9001
     }
 }

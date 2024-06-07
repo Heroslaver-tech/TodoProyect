@@ -74,6 +74,13 @@ class FragmentForm : Fragment() {
         datePickerDialog.show()
     }
 
+
+    private fun goBack() {
+        binding.toolbarIcon.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
     private fun guardarToDo() {
         val titulo = binding.etTitulo.text.toString()
         val description = binding.etDescription.text.toString()
@@ -93,3 +100,4 @@ class FragmentForm : Fragment() {
         }
     }
 }
+

@@ -15,4 +15,7 @@
     <string name="login">Sign In</string>
     <string name="title_login">Login Firebase</string>
     <string name="google">Sign in with Google</string>
+    <string name="login_text"><u>Login</u></string>
+    <string name="register_text"><u>Register</u></string>
+
 </resources>
