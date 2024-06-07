@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
     id ("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
 android {
     namespace = "com.example.project"
@@ -17,6 +18,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -91,9 +93,16 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
+<<<<<<< Updated upstream
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.android.gms:play-services-auth:20.1.0")
+=======
+    //dagger hilt
+    implementation("com.google.dagger:hilt-android:2.47")
+    kapt ("com.google.dagger:hilt-compiler:2.47")
+
+>>>>>>> Stashed changes
 }

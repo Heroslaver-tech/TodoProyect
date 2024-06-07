@@ -9,9 +9,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.project.R
 import com.example.project.databinding.FragmentDetailsBinding
+<<<<<<< Updated upstream
 import com.example.project.model.ToDo
 import com.example.project.viewmodel.ToDoViewModel
+=======
+import com.example.project.model.Pet
+import com.example.project.viewmodel.PetViewModel
+import dagger.hilt.android.AndroidEntryPoint
+>>>>>>> Stashed changes
 
+@AndroidEntryPoint
 class FragmentDetails : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private val toDoViewModel: ToDoViewModel by viewModels()

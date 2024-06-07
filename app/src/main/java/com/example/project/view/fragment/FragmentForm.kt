@@ -14,13 +14,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.project.databinding.FragmentFormBinding
+<<<<<<< Updated upstream
 import com.example.project.model.ToDo
 import com.example.project.viewmodel.ToDoViewModel
 import java.util.Calendar
 import java.util.Date
 import com.example.project.R
+=======
+import dagger.hilt.android.AndroidEntryPoint
+>>>>>>> Stashed changes
 
-
+@AndroidEntryPoint
 class FragmentForm : Fragment() {
 
     private lateinit var binding: FragmentFormBinding

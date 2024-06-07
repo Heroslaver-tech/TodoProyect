@@ -14,9 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project.R
 import com.example.project.databinding.FragmentMainBinding
+<<<<<<< Updated upstream
 
 import com.example.project.viewmodel.ToDoViewModel
+=======
+import com.example.project.view.adapter.PetAdapter
+import com.example.project.viewmodel.PetViewModel
+import dagger.hilt.android.AndroidEntryPoint
+>>>>>>> Stashed changes
 
+@AndroidEntryPoint
 class FragmentMain : Fragment() {
 
     private lateinit var binding: FragmentMainBinding

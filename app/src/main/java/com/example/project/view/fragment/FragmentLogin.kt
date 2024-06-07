@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.project.R
 import com.example.project.databinding.FragmentLoginBinding
+<<<<<<< Updated upstream
 import com.example.project.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -23,7 +24,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
+=======
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.Executor
+>>>>>>> Stashed changes
 
+
+@AndroidEntryPoint
 class FragmentLogin : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
