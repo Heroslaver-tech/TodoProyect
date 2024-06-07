@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
-                android:text="Create detail"
+                android:text="Create Your Task"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -53,6 +53,18 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="-5dp"
                 android:src="@drawable/bumbles" />
+
+            <ImageView
+                android:id="@+id/goBackIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_above="@+id/toolbar_subtitle"
+                android:layout_alignEnd="@+id/toolbar_balls"
+                android:layout_marginEnd="92dp"
+                android:layout_marginBottom="17dp"
+                android:background="@drawable/image_view_selector"
+
+                app:srcCompat="@drawable/back" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -78,6 +90,7 @@
             android:inputType="date"
             android:maxLines="1"
             android:padding="10dp" />
+
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,7 +159,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSavePet"
+        android:id="@+id/btnSaveToDo"
         android:layout_width="0dp"
         android:layout_height="69dp"
         android:layout_marginEnd="16dp"

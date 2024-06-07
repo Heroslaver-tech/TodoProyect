@@ -21,6 +21,9 @@ import java.util.Date
 import com.example.project.R
 
 import  androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class FragmentForm : Fragment() {
     private val calendar = Calendar.getInstance()
@@ -46,14 +49,24 @@ class FragmentForm : Fragment() {
 
     }
 
+
     private fun setup() {
-        binding.btnSavePet.setOnClickListener {
+        binding.btnSaveToDo.setOnClickListener {
             guardarToDo()
         }
 
         binding.etFecha.setOnClickListener {
             showDatePickerDialog()
         }
+        binding.etFecha.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    showDatePickerDialog()
+                }
+            }
+        }
+
+        goBack()
     }
     private fun showDatePickerDialog() {
         val year = calendar.get(Calendar.YEAR)
@@ -97,6 +110,11 @@ class FragmentForm : Fragment() {
 
         } else {
             Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun goBack() {
+        binding.goBackIcon.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }
