@@ -2,8 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_centerHorizontal="true"
-    app:layout_anchorGravity="center">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <data>
         <variable
@@ -15,86 +16,137 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundMain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         tools:context=".fragment.FragmentMain">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <FrameLayout
+            android:id="@+id/header"
             android:layout_width="0dp"
-            android:layout_height="135dp"
-            android:background="@drawable/home_header_background"
+            android:layout_height="155dp"
+            android:background="@drawable/rectangle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleMarginStart="16dp"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            app:titleTextColor="@android:color/white">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/Hecircle1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/circle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="-80dp"
+                />
 
-                <ImageView
-                    android:id="@+id/perritoImg"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/perro" />
+            <ImageView
+                android:id="@+id/Hecircle2"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="start"
+                android:src="@drawable/circle"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginStart="-70dp"
+                android:layout_marginTop="-30dp"
+                />
 
-                <TextView
-                    android:id="@+id/adminTitleTextView"
-                    android:layout_width="185dp"
-                    android:layout_height="86dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:gravity="center"
-                    android:text="Administrador de citas"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="Mary Jane"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/open_sans"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
-                <TextView
-                    android:id="@+id/titleTextView"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/perritoImg"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="7dp"
-                    android:text="DogApp"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-            </RelativeLayout>
 
-        </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/tvSignOff"
+                android:layout_width="110dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/Sign_off"
+                android:textColor="@color/white"
+                android:fontFamily="@font/open_sans"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:textStyle="bold"/>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/clock"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/clock_image"
+                android:layout_width="140dp"
+                android:layout_height="157dp"
+                android:layout_marginHorizontal="150dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/clock" />
+
+            <TextView
+                android:id="@+id/greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/clock_image"
+                android:layout_marginLeft="142dp"
+                android:fontFamily="@font/open_sans"
+                android:textStyle="bold"
+                android:text="Good Afternoon"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="407dp"
+            android:layout_height="334dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.7"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/body"
+            app:layout_constraintVertical_bias="0.869"
             tools:listitem="@layout/pet_inventory" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <TextView
+            android:id="@+id/taskList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="-20dp"
+            android:text="Task List"
+            android:textColor="@color/black"
+            android:fontFamily="@font/open_sans"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/body"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageButton
             android:id="@+id/btnagregar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/pink"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="-28dp"
             android:contentDescription="button add"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="@id/body"
             app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
