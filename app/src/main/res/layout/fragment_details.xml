@@ -29,9 +29,9 @@
                 android:layout_width="72dp"
                 android:layout_height="62dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="72dp"
+                android:layout_marginStart="34dp"
                 android:layout_marginTop="7dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="50dp"
                 android:layout_toStartOf="@+id/toolbar_title"
                 android:padding="16dp"
                 android:src="@drawable/ic_back" />
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Nueva Cita"
+                android:text="Nueva TODO"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="20sp" />
@@ -50,10 +50,11 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvPetEdit"
-        android:layout_width="404dp"
-        android:layout_height="341dp"
+        android:layout_width="410dp"
+        android:layout_height="550dp"
         android:layout_gravity="center"
         android:backgroundTint="@color/white"
         android:elevation="8dp"
@@ -62,164 +63,119 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.497"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_height="518dp"
             android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="115dp"
-                android:layout_height="111dp"
-                android:background="@drawable/cuadrado_details"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/perritoImg"
-                android:layout_width="96dp"
-                android:layout_height="102dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:src="@drawable/perro"
-                app:layout_constraintBottom_toBottomOf="@id/ivProfile"
-                app:layout_constraintEnd_toEndOf="@id/ivProfile"
-                app:layout_constraintStart_toStartOf="@id/ivProfile"
-                app:layout_constraintTop_toTopOf="@id/ivProfile"
-                tools:layout_editor_absoluteX="125dp"
-                tools:layout_editor_absoluteY="50dp" />
-
             <TextView
-                android:id="@+id/tvRaceEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:id="@+id/tvTituloMos"
+                android:layout_width="203dp"
+                android:layout_height="42dp"
                 android:padding="5dp"
-                android:text="Race"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
-
-            <TextView
-                android:id="@+id/tvSymptomEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:text="Sintoma"
+                android:text="Titulo"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintHorizontal_bias="0.048"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRaceEdit" />
+                tools:layout_editor_absoluteY="16dp" />
 
             <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginTop="24dp"
                 android:background="#FF0000"
                 android:elevation="2dp"
-                app:layout_constraintTop_toBottomOf="@+id/tvSymptomEdit" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTituloMos"
+                tools:layout_editor_absoluteX="10dp" />
+
 
             <TextView
-                android:id="@+id/tvnamePerson2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
+                android:id="@+id/tvDescriptionMost"
+                android:layout_width="380dp"
+                android:layout_height="294dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="92dp"
                 android:padding="5dp"
                 android:text="Propietario:"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSymptomEdit" />
+                app:layout_constraintTop_toTopOf="@+id/view" />
 
             <TextView
-                android:id="@+id/tvTel2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
+                android:id="@+id/tvFechaMos"
+                android:layout_width="127dp"
+                android:layout_height="42dp"
                 android:padding="5dp"
-                android:text="Telefono:"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvnamePerson2" />
-
-            <TextView
-                android:id="@+id/tvIdEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Index"
-                android:textColor="#FF0000"
+                android:text="Fecha"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="16dp" />
 
             <TextView
-                android:id="@+id/tvnamePersonEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
+                android:id="@+id/tvPrioridad"
+                android:layout_width="193dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="184dp"
+                android:layout_marginTop="28dp"
                 android:padding="5dp"
-                android:text="propietario"
+                android:text="Prioridad"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/tvnamePerson2"
-                app:layout_constraintTop_toBottomOf="@+id/tvSymptomEdit" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionMost"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/tvTelEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tvEstadoMost"
+                android:layout_width="152dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="28dp"
                 android:padding="5dp"
-                android:text="telefono"
+                android:text="Estado"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/tvTel2"
-                app:layout_constraintTop_toBottomOf="@+id/tvnamePersonEdit" />
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tvPrioridad"
+                app:layout_constraintHorizontal_bias="0.181"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionMost"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:backgroundTint="@color/pink"
-        android:contentDescription="button delete"
-        android:src="@drawable/ic_delete"
+    <Button
+        android:id="@+id/BtnEditar"
+        android:layout_width="170dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:text="Editar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvPetEdit"
+        app:layout_constraintVertical_bias="0.32" />
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:contentDescription="button edit"
-        android:layout_marginRight="16dp"
-        android:backgroundTint="@color/pink"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_edit_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="170dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="224dp"
+        android:text="Eliminar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvPetEdit"
+        app:layout_constraintVertical_bias="0.32" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

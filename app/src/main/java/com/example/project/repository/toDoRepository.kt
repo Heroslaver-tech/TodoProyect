@@ -7,31 +7,28 @@ import com.example.project.model.ToDo
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 class ToDoRepository {
 
     private val db = FirebaseFirestore.getInstance()
     private val todoCollection = db.collection("tarea")
 
-    fun getListToDos(): LiveData<MutableList<ToDo>> {
-        val mutableData = MutableLiveData<MutableList<ToDo>>()
-        db.collection("tarea").get().addOnSuccessListener { result ->
-            val toDoList = mutableListOf<ToDo>()
-
-            for (document in result) {
-                val toDo = document.toObject(ToDo::class.java)
-                toDoList.add(toDo)
-            }
-            mutableData.value = toDoList
-        }.addOnFailureListener { exception ->
-            // Manejo de errores
-        }
-
-        return mutableData
-    }
+//    fun getListToDos(): LiveData<MutableList<ToDo>> {
+//        val mutableData = MutableLiveData<MutableList<ToDo>>()
+//        db.collection("tarea").get().addOnSuccessListener { result ->
+//            val toDoList = mutableListOf<ToDo>()
+//
+//            for (document in result) {
+//                val toDo = document.toObject(ToDo::class.java)
+//                toDoList.add(toDo)
+//            }
+//            mutableData.value = toDoList
+//        }.addOnFailureListener { exception ->
+//            // Manejo de errores
+//        }
+//
+//        return mutableData
+//    }
 
     suspend fun addToDo(todo: ToDo): Boolean {
         return try {

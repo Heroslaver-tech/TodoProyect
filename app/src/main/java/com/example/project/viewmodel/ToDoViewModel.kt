@@ -74,6 +74,8 @@ class ToDoViewModel : ViewModel() {
         private const val TAG = "TodoViewModel"
     }
 
+
+
     fun deleteToDo(titulo: String) {
         viewModelScope.launch {
             _progressState.value = true
