@@ -11,7 +11,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class ToDoRepository {
+class ToDoRepository  {
 
     private val db = FirebaseFirestore.getInstance()
     private val todoCollection = db.collection("tarea")
@@ -98,6 +98,7 @@ class ToDoRepository {
             .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
 }
+
 
 
 

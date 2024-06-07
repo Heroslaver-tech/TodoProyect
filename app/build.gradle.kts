@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
     id ("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
 android {
 
@@ -93,10 +94,26 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    //DaggerHilt
+    implementation("com.google.dagger:hilt-android:2.47")
+    kapt ("com.google.dagger:hilt-compiler:2.47")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.android.gms:play-services-auth:20.1.0")
+    
+
+    //testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation ("org.mockito:mockito-android:3.11.2")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    debugImplementation ("org.jacoco:org.jacoco.core:0.8.7")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }

@@ -4,17 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.project.model.ToDo
 import com.example.project.repository.ToDoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.Locale
+import javax.inject.Inject
 
-
-class ToDoViewModel : ViewModel() {
-
-    private val repository = ToDoRepository()
+@HiltViewModel
+class ToDoViewModel @Inject constructor(
+        private val repository: ToDoRepository
+    ):ViewModel() {
+//    private val repository = ToDoRepository()
 
     private val _progressState = MutableLiveData<Boolean>()
     val progressState: LiveData<Boolean> = _progressState
@@ -108,6 +109,8 @@ class ToDoViewModel : ViewModel() {
             }
         }
     }
+
+
 
 }
 
