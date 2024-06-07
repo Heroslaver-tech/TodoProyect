@@ -14,7 +14,7 @@ import com.example.project.viewmodel.ToDoViewModel
 
 class FragmentDetails : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
-    private val toDoViewModel: ToDoViewModel by viewModels()
+    private lateinit var toDoViewModel: ToDoViewModel
     private lateinit var receivedToDo: ToDo
 
     override fun onCreateView(
@@ -63,4 +63,32 @@ class FragmentDetails : Fragment() {
                 findNavController().popBackStack()
             }
         }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.getToDoDetails(args.todoId).observe(viewLifecycleOwner, Observer { todo ->
+            todo?.let {
+                displayToDoDetails(todo)
+            } ?: run {
+                Log.e(TAG, "Error: Todo details not found")
+                // Handle error or show appropriate message
+            }
+        })
+    }
+
+    private fun displayToDoDetails(todo: ToDo) {
+        binding.tvTituloMos.text= todo.titulo
+        binding.tvDescriptionMost.text = todo.description
+        binding.tvEstadoMost.text = if (todo.status) "Completed" else "Pending"
+        binding.tvFechaMos.text = todo.date.toString() // Format date as needed
+        binding.tvPrioridad.text = todo.prioridad
+    }
+
+    companion object {
+        private const val TAG = "FragmentDetails"
+    }
     }
