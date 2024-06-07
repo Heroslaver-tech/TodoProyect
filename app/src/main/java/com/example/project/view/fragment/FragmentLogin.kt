@@ -103,7 +103,7 @@ class FragmentLogin : Fragment() {
             loginUser()
         }
 
-        binding.tvRegister.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentLogin_to_fragmentRegister)
         }
     }

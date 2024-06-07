@@ -75,11 +75,11 @@ class FragmentForm : Fragment() {
     }
 
 
-    private fun goBack() {
-        binding.toolbarIcon.setOnClickListener {
-            findNavController().popBackStack()
-        }
-    }
+//    private fun goBack() {
+//        binding.toolbarIcon.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
+//    }
 
     private fun guardarToDo() {
         val titulo = binding.etTitulo.text.toString()
