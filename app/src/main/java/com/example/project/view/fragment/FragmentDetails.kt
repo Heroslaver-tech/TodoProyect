@@ -11,6 +11,8 @@ import com.example.project.R
 import com.example.project.databinding.FragmentDetailsBinding
 import com.example.project.model.ToDo
 import com.example.project.viewmodel.ToDoViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class FragmentDetails : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
@@ -53,6 +55,10 @@ class FragmentDetails : Fragment() {
         binding.tvEstadoMost.text = if (receivedToDo.status) "Completado" else "Pendiente"
         binding.tvFechaMos.text = receivedToDo.date.toString() // Ajusta el formato de la fecha según sea necesario
         binding.tvPrioridad.text =receivedToDo.prioridad
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(receivedToDo.date)
+        binding.tvFechaMos.text = formattedDate
+
 
     }
 
