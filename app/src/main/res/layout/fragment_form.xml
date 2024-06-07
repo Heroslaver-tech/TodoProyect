@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/backgroundMain"
-    android:layout_height="match_parent"
-    >
-
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -39,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="HOLIS"
+                android:text="Nueva tarea"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -49,69 +47,68 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="331dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="88dp"
-        android:hint="Nombre de la Mascota"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_cuadrado"
-            android:inputType="textPersonName"
-            android:maxLength="15"
-            android:maxLines="1"
-            android:padding="10dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilRace"
+        android:id="@+id/tilTitulo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:hint="Raza"
+        android:hint="Titulo del ToDo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilName"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRace"
+            android:id="@+id/etTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:background="@drawable/bg_cuadrado"
+            android:inputType="textPersonName"
             android:maxLines="1"
+            android:maxLength="40"
             android:background="@drawable/bg_cuadrado"
             android:padding="10dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilNamePerson"
+        android:id="@+id/tilDescription"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:hint="Descrpcion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilTitulo"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:background="@drawable/bg_cuadrado"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:padding="10dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFecha"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="Nombre del Propietario"
+        android:hint="Fecha"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilRace"
+        app:layout_constraintTop_toBottomOf="@id/tilDescription"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNamePerson"
+            android:id="@+id/etFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"
             android:background="@drawable/bg_cuadrado"
+            android:inputType="date"
+            android:maxLines="1"
             android:padding="10dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -122,30 +119,18 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="Teléfono"
+        android:hint="Fecha"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilNamePerson"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:maxLength="10"
-            android:background="@drawable/bg_cuadrado"
-            android:padding="10dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@id/tilFecha"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
     <Spinner
-        android:id="@+id/spSymptom"
+        android:id="@+id/spPrioridad"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:entries="@array/sintomas"
+        android:entries="@array/prioridad"
         android:minHeight="48dp"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -168,7 +153,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spSymptom"
+        app:layout_constraintTop_toBottomOf="@id/spPrioridad"
         app:layout_constraintVertical_bias="0.483" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
