@@ -24,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
 
+
 class FragmentRegister : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
@@ -42,13 +43,29 @@ class FragmentRegister : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         sharedPreferences = requireContext().getSharedPreferences("shared", Context.MODE_PRIVATE)
-        setupGoogleSignIn() // Configuración de Google Sign-In
+        setupGoogleSignIn()
         setup()
         setupTextWatchers()
         return binding.root
     }
 
-    // Configura el inicio de sesión con Google
+    //drivers and bottom disable
+    private fun setup() {
+        binding.btnRegister.setOnClickListener {
+            registerUser()
+        }
+
+        binding.tvSignIn.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentRegister_to_fragmentLogin)
+        }
+
+    }
+
+    //go to login
+    private fun goToLogin(){
+        findNavController().navigate(R.id.action_fragmentRegister_to_fragmentLogin)
+    }
+
     private fun setupGoogleSignIn() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -62,19 +79,16 @@ class FragmentRegister : Fragment() {
             signInWithGoogle()
         }
     }
-
-    // Cambia el texto del botón de Google Sign-In
     private fun setGooglePlusButtonText(signInButton: SignInButton) {
         for (i in 0 until signInButton.childCount) {
             val v = signInButton.getChildAt(i)
             if (v is Button) {
-                v.text = "Sign up with Google"
+                v.text = "Sign in"
                 return
             }
         }
     }
 
-    // Inicia el proceso de inicio de sesión con Google
     private fun signInWithGoogle() {
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
@@ -82,48 +96,54 @@ class FragmentRegister : Fragment() {
         }
     }
 
-    // Maneja el resultado del intento de inicio de sesión con Google
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(Exception::class.java)
             if (account != null) {
-                // Maneja el registro exitoso aquí
+                // Handle successful sign-in here
                 Toast.makeText(context, "Google Sign-In successful", Toast.LENGTH_SHORT).show()
-                goToLogin()
+                goToHome()
             }
         } catch (e: Exception) {
             Toast.makeText(context, "Google Sign-In failed", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // Configura los listeners para los botones
-    private fun setup() {
-        binding.btnRegister.setOnClickListener {
-            registerUser()
-        }
-        // Inicializa el botón en deshabilitado
-        binding.btnRegister.isEnabled = false
+    private fun goToHome() {
+        findNavController().navigate(R.id.action_fragmentRegister_to_fragmentMain)
     }
 
-    // Navega a la vista de inicio de sesión
-    private fun goToLogin(){
-        findNavController().navigate(R.id.action_fragmentRegister_to_fragmentLogin)
-    }
-
-    // Registra al usuario
+    //Register the user
     private fun registerUser(){
         val email = binding.etEmail.text.toString()
         val pass = binding.etPass.text.toString()
+        val confirmPass = binding.etPass2.text.toString()
 
-        // Verifica si el email y la contraseña no están vacíos
-        if (email.isEmpty() || pass.isEmpty()) {
+        // Verify if email and pass is not empty
+        if (email.isEmpty() || pass.isEmpty() || confirmPass.isEmpty()) {
             Toast.makeText(context, "Please complete all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Verifica si la contraseña tiene al menos 6 caracteres
+        // Verify if email is valid
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(context, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+            return
+        }
+        // Verify if password have minimum 6 characters
         if (pass.length < 6) {
             Toast.makeText(context, "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (confirmPass.length < 6) {
+            Toast.makeText(context, "Confirm password must be at least 6 characters long", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Verify if password and confirm password are the same
+        if (pass != confirmPass) {
+            Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -137,27 +157,17 @@ class FragmentRegister : Fragment() {
         }
     }
 
-    // Configura los listeners para los cambios en los campos de texto
     private fun setupTextWatchers() {
         val textWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateInputs()
-            }
+            override fun afterTextChanged(s: Editable?) {}
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
-
         binding.etEmail.addTextChangedListener(textWatcher)
         binding.etPass.addTextChangedListener(textWatcher)
+        binding.etPass2.addTextChangedListener(textWatcher)
     }
 
-    // Valida que los campos de email y contraseña no estén vacíos
-    private fun validateInputs() {
-        val email = binding.etEmail.text.toString()
-        val pass = binding.etPass.text.toString()
-
-        binding.btnRegister.isEnabled = email.isNotEmpty() && pass.isNotEmpty() && pass.length >= 6
-    }
 }

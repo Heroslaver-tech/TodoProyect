@@ -21,5 +21,6 @@
     <string name="homeTittle">Day Planner</string>
     <string name="homeContent1">Dont procrastinate</string>
     <string name="homeContent2">be happy with Day planner</string>
+    <string name="Sign_In">Sign In</string>
 
 </resources>

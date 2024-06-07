@@ -186,11 +186,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvSignUp"
+                android:id="@+id/tvSignIn"
                 android:layout_width="54dp"
                 android:layout_height="27dp"
+                android:paddingTop="3dp"
                 android:layout_gravity="center_vertical"
-                android:text="Sign In"
+                android:text="@string/Sign_In"
                 android:textColor="@color/blue"
                 android:textStyle="bold" />
         </LinearLayout>
