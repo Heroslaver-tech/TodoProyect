@@ -47,8 +47,8 @@
         <!-- Botón de inicio de sesión con Google -->
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btnGoogle"
-            android:layout_width="134dp"
-            android:layout_height="51dp"
+            android:layout_width="224dp"
+            android:layout_height="52dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
@@ -67,19 +67,7 @@
             app:boxBackgroundMode="none"
             app:layout_constraintTop_toBottomOf="@id/btnGoogle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <EditText
-                android:id="@+id/fullnameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edit_text"
-                android:hint="Enter your full name"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColorHint="@android:color/darker_gray"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
         <!-- Campo de correo electrónico -->
