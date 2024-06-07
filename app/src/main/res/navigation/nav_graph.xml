@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentStart">
+    app:startDestination="@id/fragmentMain">
 
     <fragment
         android:id="@+id/fragmentLogin"
@@ -36,7 +36,11 @@
         android:id="@+id/fragmentForm"
         android:name="com.example.project.view.fragment.FragmentForm"
         android:label="FragmentForm"
-        tools:layout = "@layout/fragment_form"/>
+        tools:layout = "@layout/fragment_form">
+        <action
+            android:id="@+id/action_fragmentForm_to_fragmentMain"
+            app:destination="@id/fragmentMain" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentDetails"
         android:name="com.example.project.view.fragment.FragmentDetails"
