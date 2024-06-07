@@ -107,23 +107,23 @@ class ToDoViewModel : ViewModel() {
         }
     }
 
-    fun updateToDo(todo: ToDo) {
+    fun updateTODOS(todo: ToDo) {
         viewModelScope.launch {
-            _progressState.value = true
             try {
-                repository.updateToDo(todo) { error ->
-                    if (error == null) {
-                        //loadToDoList()
-                    }
+                _progressState.value = true
+                val success = repository.updateToDo(todo)
+                if (success) {
+                    // Actualización exitosa, puedes realizar cualquier acción adicional si es necesario
+                } else {
+                    _error.value = "Error updating ToDo: Unknown error"
                 }
             } catch (e: Exception) {
-                // Handle the exception if necessary
+                _error.value = "Error updating ToDo: ${e.message}"
             } finally {
                 _progressState.value = false
             }
         }
     }
-
 }
 
 

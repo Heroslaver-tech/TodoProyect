@@ -86,15 +86,18 @@ class ToDoRepository {
             .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
 
-
-
-    fun updateToDo(todo: ToDo, result: (String?) -> Unit) {
-        db.collection("tarea")
-            .document(todo.titulo)
-            .set(todo)
-            .addOnSuccessListener { result(null) }
-            .addOnFailureListener { exception -> result(exception.localizedMessage) }
+    suspend fun updateToDo(todo: ToDo): Boolean {
+        return try {
+            // Realizar la actualización en la base de datos
+            db.collection("tarea").document(todo.titulo).set(todo).await()
+            true // Devolver true si la actualización fue exitosa
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating ToDo: ${e.message}", e)
+            false // Devolver false si ocurrió un error durante la actualización
+        }
     }
+
+
 }
 
 
