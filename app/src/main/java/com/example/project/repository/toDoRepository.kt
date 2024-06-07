@@ -26,7 +26,6 @@ class ToDoRepository {
         }.addOnFailureListener { exception ->
             // Manejo de errores
         }
-
         return mutableData
     }
 
@@ -87,6 +86,8 @@ class ToDoRepository {
             .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
 
+
+
     fun updateToDo(todo: ToDo, result: (String?) -> Unit) {
         db.collection("tarea")
             .document(todo.titulo)
@@ -95,31 +96,5 @@ class ToDoRepository {
             .addOnFailureListener { exception -> result(exception.localizedMessage) }
     }
 }
-
-
-
-//    suspend fun getToDos(): List<ToDo> {
-//        return suspendCoroutine { continuation ->
-//            db.collection("tarea")
-//                .get()
-//                .addOnSuccessListener { querySnapshot ->
-//                    val toDos = mutableListOf<ToDo>()
-//                    for (document in querySnapshot.documents) {
-//                        val titulo = document.get("titulo") as String
-//                        val description = document.get("description") as String
-//                        val status = document.get("status") as Boolean
-//                        val fecha = (document.get("fecha") as Timestamp).toDate()
-//                        val prioridad = document.get("prioridad") as String
-//                        val toDo = ToDo(titulo, description, status, fecha, prioridad)
-//                        toDos.add(toDo)
-//                    }
-//                    continuation.resume(toDos)
-//                }
-//                .addOnFailureListener { exception ->
-//                    continuation.resumeWithException(exception)
-//                }
-//        }
-//    }
-//
 
 

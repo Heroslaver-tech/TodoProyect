@@ -156,7 +156,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/BtnEditar"
+        android:id="@+id/btnEditar"
         android:layout_width="170dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -167,7 +167,7 @@
         app:layout_constraintVertical_bias="0.32" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btnEliminar"
         android:layout_width="170dp"
         android:layout_height="41dp"
         android:layout_marginStart="224dp"

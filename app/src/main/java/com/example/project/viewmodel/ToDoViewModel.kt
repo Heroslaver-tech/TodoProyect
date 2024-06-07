@@ -59,6 +59,7 @@ class ToDoViewModel : ViewModel() {
         }
     }
 
+
     fun updateToDoStatus(toDoTitulo: String, isChecked: Boolean) {
         viewModelScope.launch {
             try {
@@ -76,20 +77,32 @@ class ToDoViewModel : ViewModel() {
 
 
 
-    fun deleteToDo(titulo: String) {
+//    fun deleteToDo(titulo: String) {
+//        viewModelScope.launch {
+//            _progressState.value = true
+//            try {
+//                repository.deleteToDo(titulo) { error ->
+//                    if (error == null) {
+//                        //loadToDoList()
+//                        fetchToDoList()
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                // Handle the exception if necessary
+//            } finally {
+//                _progressState.value = false
+//            }
+//        }
+//    }
+
+    fun deleteToDo(todo: ToDo) {
         viewModelScope.launch {
-            _progressState.value = true
-            try {
-                repository.deleteToDo(titulo) { error ->
-                    if (error == null) {
-                        //loadToDoList()
-                        fetchToDoList()
-                    }
+            repository.deleteToDo(todo.titulo) { error ->
+                if (error == null) {
+                    // Manejar la eliminación exitosa, si es necesario
+                } else {
+                    // Manejar el error, si ocurre
                 }
-            } catch (e: Exception) {
-                // Handle the exception if necessary
-            } finally {
-                _progressState.value = false
             }
         }
     }

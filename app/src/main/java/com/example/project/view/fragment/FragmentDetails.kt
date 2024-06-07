@@ -14,7 +14,7 @@ import com.example.project.viewmodel.ToDoViewModel
 
 class FragmentDetails : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
-    private lateinit var toDoViewModel: ToDoViewModel
+    private val toDoViewModel: ToDoViewModel by viewModels()
     private lateinit var receivedToDo: ToDo
 
     override fun onCreateView(
@@ -34,11 +34,11 @@ class FragmentDetails : Fragment() {
     }
 
     private fun controladores() {
-        binding.btnDelete.setOnClickListener {
-            //deleteInventory()
+        binding.btnEliminar.setOnClickListener {
+            deleteInventory()
         }
 
-        binding.fbEdit.setOnClickListener {
+        binding.btnEditar.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("dataInventory", receivedToDo)
             findNavController().navigate(R.id.action_fragmentDetails_to_fragmentEdit, bundle)
@@ -48,47 +48,22 @@ class FragmentDetails : Fragment() {
     private fun dataInventory() {
         val receivedBundle = arguments
         receivedToDo = receivedBundle?.getSerializable("clave") as ToDo
-        binding.tvRaceEdit.text = receivedToDo.titulo
+        binding.tvTituloMos.text = receivedToDo.titulo
+        binding.tvDescriptionMost.text = receivedToDo.description
+        binding.tvEstadoMost.text = if (receivedToDo.status) "Completado" else "Pendiente"
+        binding.tvFechaMos.text = receivedToDo.date.toString() // Ajusta el formato de la fecha según sea necesario
+        binding.tvPrioridad.text =receivedToDo.prioridad
 
     }
 
-//        private fun deleteInventory(){
-//            toDoViewModel.deleteToDo(receivedToDo.toString())
-//            toDoViewModel.loadToDoList()
-//            findNavController().popBackStack()
-//        }
+    private fun deleteInventory() {
+        toDoViewModel.deleteToDo(receivedToDo)
+        findNavController().popBackStack()
+    }
 
-        private fun goBack() {
-            binding.toolbarIcon.setOnClickListener {
-                findNavController().popBackStack()
-            }
+    private fun goBack() {
+        binding.toolbarIcon.setOnClickListener {
+            findNavController().popBackStack()
         }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupObservers()
     }
-
-    private fun setupObservers() {
-        viewModel.getToDoDetails(args.todoId).observe(viewLifecycleOwner, Observer { todo ->
-            todo?.let {
-                displayToDoDetails(todo)
-            } ?: run {
-                Log.e(TAG, "Error: Todo details not found")
-                // Handle error or show appropriate message
-            }
-        })
-    }
-
-    private fun displayToDoDetails(todo: ToDo) {
-        binding.tvTituloMos.text= todo.titulo
-        binding.tvDescriptionMost.text = todo.description
-        binding.tvEstadoMost.text = if (todo.status) "Completed" else "Pending"
-        binding.tvFechaMos.text = todo.date.toString() // Format date as needed
-        binding.tvPrioridad.text = todo.prioridad
-    }
-
-    companion object {
-        private const val TAG = "FragmentDetails"
-    }
-    }
+}
