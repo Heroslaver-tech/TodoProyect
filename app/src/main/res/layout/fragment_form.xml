@@ -3,68 +3,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backgroundMain"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgroundMain">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:background="@drawable/custom_toolbar"
+        android:background="@color/blue"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title=""
-        >
+        app:title="">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/toolbar_balls"
-                android:layout_width="109dp"
-                android:layout_height="96dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/bumbles" />
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="1dp">
 
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Nueva tarea"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="Create Your Task"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/toolbar_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="Create a new task to do"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/toolbar_balls"
+                android:layout_width="wrap_content"
+                android:layout_height="145dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="-5dp"
+                android:src="@drawable/bumbles" />
+
+            <ImageView
+                android:id="@+id/goBackIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_above="@+id/toolbar_subtitle"
+                android:layout_alignEnd="@+id/toolbar_balls"
+                android:layout_marginEnd="92dp"
+                android:layout_marginBottom="17dp"
+                android:background="@drawable/image_view_selector"
+
+                app:srcCompat="@drawable/back" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFecha"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:hint="Fecha"
+        app:layout_constraintEnd_toStartOf="@+id/spPrioridad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFecha"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_edit_text"
+            android:inputType="date"
+            android:maxLines="1"
+            android:padding="10dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spPrioridad"
+        android:layout_width="230dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_edit_text"
+        android:entries="@array/prioridad"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tilFecha"
+        app:layout_constraintTop_toTopOf="@+id/tilFecha" />
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTitulo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
-        android:hint="Titulo del ToDo"
+        android:hint="Title"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/spPrioridad">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitulo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_cuadrado"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_edit_text"
             android:inputType="textPersonName"
-            android:maxLines="1"
             android:maxLength="40"
+            android:maxLines="1"
             android:padding="10dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,18 +137,20 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilDescription"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
-        android:hint="Descrpcion"
+        android:hint="Description"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilTitulo"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tilTitulo">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDescription"
             android:layout_width="match_parent"
-            android:layout_height="143dp"
+            android:layout_height="127dp"
             android:background="@drawable/bg_cuadrado"
             android:inputType="textMultiLine"
             android:maxLines="5"
@@ -91,69 +158,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilFecha"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Fecha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilDescription"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etFecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_cuadrado"
-            android:inputType="date"
-            android:maxLines="1"
-            android:padding="10dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilTel"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Fecha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilFecha"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-    <Spinner
-        android:id="@+id/spPrioridad"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:entries="@array/prioridad"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilTel"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSavePet"
-        android:layout_width="250dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:id="@+id/btnSaveToDo"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="200dp"
-        app:icon="@drawable/ic_save_24"
-        app:iconPadding="2dp"
-        android:text="Guardar"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="Save"
+        android:textSize="25sp"
         android:theme="@style/AppTheme.SaveButton"
+        app:cornerRadius="0dp"
+        app:iconPadding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spPrioridad"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintTop_toBottomOf="@+id/tilDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

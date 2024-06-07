@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -18,12 +19,16 @@ import java.util.Calendar
 import java.util.Date
 import com.example.project.R
 
+import  androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class FragmentForm : Fragment() {
-
+    private val calendar = Calendar.getInstance()
     private lateinit var binding: FragmentFormBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private val calendar = Calendar.getInstance()
+
     private var selectedDate: String? = null
     private val toDoViewModel: ToDoViewModel by viewModels()
 
@@ -43,16 +48,25 @@ class FragmentForm : Fragment() {
 
     }
 
+
     private fun setup() {
-        binding.btnSavePet.setOnClickListener {
+        binding.btnSaveToDo.setOnClickListener {
             guardarToDo()
         }
 
         binding.etFecha.setOnClickListener {
             showDatePickerDialog()
         }
-    }
+        binding.etFecha.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View, hasFocus: Boolean) {
+                if (hasFocus) {
+                    showDatePickerDialog()
+                }
+            }
+        }
 
+        goBack()
+    }
     private fun showDatePickerDialog() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -95,6 +109,11 @@ class FragmentForm : Fragment() {
 
         } else {
             Toast.makeText(requireContext(), "Complete todos los campos", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun goBack() {
+        binding.goBackIcon.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }
