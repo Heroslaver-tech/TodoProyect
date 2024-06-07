@@ -34,11 +34,11 @@ class FragmentDetails : Fragment() {
     }
 
     private fun controladores() {
-        binding.btnDelete.setOnClickListener {
-            //deleteInventory()
+        binding.btnEliminar.setOnClickListener {
+            deleteInventory()
         }
 
-        binding.fbEdit.setOnClickListener {
+        binding.btnEditar.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("dataInventory", receivedToDo)
             findNavController().navigate(R.id.action_fragmentDetails_to_fragmentEdit, bundle)
@@ -48,19 +48,22 @@ class FragmentDetails : Fragment() {
     private fun dataInventory() {
         val receivedBundle = arguments
         receivedToDo = receivedBundle?.getSerializable("clave") as ToDo
-        binding.tvRaceEdit.text = receivedToDo.titulo
+        binding.tvTituloMos.text = receivedToDo.titulo
+        binding.tvDescriptionMost.text = receivedToDo.description
+        binding.tvEstadoMost.text = if (receivedToDo.status) "Completado" else "Pendiente"
+        binding.tvFechaMos.text = receivedToDo.date.toString() // Ajusta el formato de la fecha según sea necesario
+        binding.tvPrioridad.text =receivedToDo.prioridad
 
     }
 
-//        private fun deleteInventory(){
-//            toDoViewModel.deleteToDo(receivedToDo.toString())
-//            toDoViewModel.loadToDoList()
-//            findNavController().popBackStack()
-//        }
+    private fun deleteInventory() {
+        toDoViewModel.deleteToDo(receivedToDo)
+        findNavController().popBackStack()
+    }
 
-        private fun goBack() {
-            binding.toolbarIcon.setOnClickListener {
-                findNavController().popBackStack()
-            }
+    private fun goBack() {
+        binding.toolbarIcon.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
+}
